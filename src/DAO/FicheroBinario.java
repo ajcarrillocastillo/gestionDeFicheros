@@ -9,11 +9,13 @@ package DAO;
 
 import gestionDeMovimientos.modelo.Empleado;
 import gestionDeMovimientos.modelo.Movimiento;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -21,12 +23,12 @@ import java.util.ArrayList;
  */
 public class FicheroBinario 
 { 
-    private ArrayList<Empleado> listaDeEmpleado;
-    private ArrayList<Movimiento> listaDeMovimientos ;
+    private HashSet<Empleado> listaDeEmpleado;
+    private HashSet<Movimiento> listaDeMovimientos ;
       
     public FicheroBinario() {
-        listaDeEmpleado = new ArrayList<Empleado>();
-        listaDeMovimientos = new ArrayList<Movimiento>();
+        listaDeEmpleado = new HashSet<Empleado>();
+        listaDeMovimientos = new HashSet<Movimiento>();
     }
     private static FicheroBinario ficheroBinario = null;
 
@@ -40,18 +42,41 @@ public class FicheroBinario
         }
     }
 
-    public void escribirFicherosDatEmpleado(String numeroDeEmpleado, String nombre,
-        String apellido) throws IOException {
-        File archivoDatEmpleados = new File("./Empleado.dat");
+    public void escribirFicherosDat(String numeroDeEmpleado, String nombre,
+        String apellido, String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion ) throws IOException {
+        File archivoDatEmpleados = new File("./FicheroDeDatos.dat");
         FileOutputStream fos;
         if (!archivoDatEmpleados.exists()) {
             archivoDatEmpleados.createNewFile();
         }
-        fos = new FileOutputStream("./Empleado.dat", true);
+        fos = new FileOutputStream("./FicheroDeDatos.dat", true);
         try (DataOutputStream dos = new DataOutputStream(fos)) {
             dos.writeUTF(numeroDeEmpleado);
             dos.writeUTF(nombre);
             dos.writeUTF(apellido);
         } 
+    }
+     public void leerFicherosDatEmpleados() throws IOException {
+        /**
+         * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
+         * Con el createNewFile creamos el Fichero
+         */
+       
+        File archivo = new File("./FicheroDeDatos.dat");
+        FileInputStream fis;
+        if (!archivo.exists()) {
+            archivo.createNewFile();
+        }
+        /**
+         * DataOutputStream guarda como ficheros de datos. llama a la clase con
+         * la que escribiremos en un fichero binario.
+         */
+        fis = new FileInputStream("./FicheroDeDatos.dat");
+        DataInputStream dis = new DataInputStream(fis);
+            String contenidoLinea;
+        while((contenidoLinea = dis.readUTF()) != null){
+            System.out.println("soy linea"+contenidoLinea);
+        } 
+         System.out.println("DATA: "+contenidoLinea);
     }
 }
