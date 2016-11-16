@@ -48,11 +48,10 @@ public class FicheroBinario
             archivoDatEmpleados.createNewFile();
         }
         fos = new FileOutputStream("./Empleado.dat", true);
-        DataOutputStream dos = new DataOutputStream(fos);
-        
-        dos.writeUTF(numeroDeEmpleado);
-        dos.writeUTF(nombre);
-        dos.writeUTF(apellido);
-        dos.close(); 
+        try (DataOutputStream dos = new DataOutputStream(fos)) {
+            dos.writeUTF(numeroDeEmpleado);
+            dos.writeUTF(nombre);
+            dos.writeUTF(apellido);
+        } 
     }
 }
