@@ -54,13 +54,15 @@ public class FicheroBinario
             dos.writeUTF(numeroDeEmpleado);
             dos.writeUTF(nombre);
             dos.writeUTF(apellido);
+            dos.writeUTF(numeroDeMovimiento);
+            dos.writeDouble(Importe);
+            dos.writeUTF(tipo);
+            dos.writeUTF(fecha);
+            dos.writeUTF(descripcion);           
         } 
     }
      public void leerFicherosDatEmpleados() throws IOException {
-        /**
-         * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
-         * Con el createNewFile creamos el Fichero
-         */
+
        
         File archivo = new File("./FicheroDeDatos.dat");
         FileInputStream fis;
@@ -71,6 +73,7 @@ public class FicheroBinario
          * DataOutputStream guarda como ficheros de datos. llama a la clase con
          * la que escribiremos en un fichero binario.
          */
+        //no entiendo esto
         fis = new FileInputStream("./FicheroDeDatos.dat");
         DataInputStream dis = new DataInputStream(fis);
             String contenidoLinea;
