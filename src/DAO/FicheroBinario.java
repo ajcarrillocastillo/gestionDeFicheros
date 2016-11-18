@@ -15,7 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,12 +23,12 @@ import java.util.HashSet;
  */
 public class FicheroBinario 
 { 
-    private HashSet<Empleado> listaDeEmpleado;
-    private HashSet<Movimiento> listaDeMovimientos ;
+    private ArrayList<Empleado> listaDeEmpleado;
+    private ArrayList<Movimiento> listaDeMovimientos ;
       
     public FicheroBinario() {
-        listaDeEmpleado = new HashSet<Empleado>();
-        listaDeMovimientos = new HashSet<Movimiento>();
+        listaDeEmpleado = new ArrayList<Empleado>();
+        listaDeMovimientos = new ArrayList<Movimiento>();
     }
     private static FicheroBinario ficheroBinario = null;
 
@@ -41,45 +41,95 @@ public class FicheroBinario
             return ficheroBinario;
         }
     }
-
+/**
+ * escribimos los datos en un fichero binario
+ */
     public void escribirFicherosDat(String numeroDeEmpleado, String nombre,
         String apellido, String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion ) throws IOException {
-        File archivoDatEmpleados = new File("./FicheroDeDatos.dat");
-        FileOutputStream fos;
-        if (!archivoDatEmpleados.exists()) {
-            archivoDatEmpleados.createNewFile();
+          /**
+         * Declaramos el fichero
+         */
+        File f = new File("./FicheroDeDatos.dat");
+        FileOutputStream fOS;
+        if (!f.exists()) {
+            f.createNewFile();
         }
-        fos = new FileOutputStream("./FicheroDeDatos.dat", true);
-        try (DataOutputStream dos = new DataOutputStream(fos)) {
-            dos.writeUTF(numeroDeEmpleado);
-            dos.writeUTF(nombre);
-            dos.writeUTF(apellido);
-            dos.writeUTF(numeroDeMovimiento);
-            dos.writeDouble(Importe);
-            dos.writeUTF(tipo);
-            dos.writeUTF(fecha);
-            dos.writeUTF(descripcion);           
+         /**
+         * Escribimos los datos
+         */
+        fOS = new FileOutputStream("./FicheroDeDatos.dat", true);
+        try (DataOutputStream dOS = new DataOutputStream(fOS)) {
+            dOS.writeUTF(numeroDeEmpleado);
+            dOS.writeUTF(nombre);
+            dOS.writeUTF(apellido);
+            dOS.writeUTF(numeroDeMovimiento);
+            dOS.writeDouble(Importe);
+            dOS.writeUTF(tipo);
+            dOS.writeUTF(fecha);
+            dOS.writeUTF(descripcion);
+            
+            
         } 
     }
-     public void leerFicherosDatEmpleados() throws IOException {
+    
+    
+     public void leerFicherosDat() throws IOException {
 
        
-        File archivo = new File("./FicheroDeDatos.dat");
-        FileInputStream fis;
-        if (!archivo.exists()) {
-            archivo.createNewFile();
+          /**
+         * Declaramos el ficherp
+         */
+        File f = new File("FicheroDeDatos.dat");
+        FileInputStream fIS;
+        if (!f.exists()) {
+            f.createNewFile();
         }
         /**
-         * DataOutputStream guarda como ficheros de datos. llama a la clase con
-         * la que escribiremos en un fichero binario.
+         * Leemos los datos de un fichro vinario
          */
-        //no entiendo esto
-        fis = new FileInputStream("./FicheroDeDatos.dat");
-        DataInputStream dis = new DataInputStream(fis);
-            String contenidoLinea;
-        while((contenidoLinea = dis.readUTF()) != null){
-            System.out.println("soy linea"+contenidoLinea);
-        } 
-         System.out.println("DATA: "+contenidoLinea);
+        fIS = new FileInputStream(f);
+        try (DataInputStream dIS = new DataInputStream(fIS)) {
+            while (dIS.available() >= 0) {
+                String numeroDeEmpleado = dIS.readUTF();
+                String nombre = dIS.readUTF();
+                String apellido = dIS.readUTF();
+                
+                String numeroDeMovimiento = dIS.readUTF();
+                double Importe = dIS.readDouble();
+                String tipo = dIS.readUTF();
+                String fecha = dIS.readUTF();
+                String descripcion = dIS.readUTF();
+                
+                Movimiento movimientoDat = new Movimiento(numeroDeMovimiento, Importe, tipo, fecha, descripcion, numeroDeEmpleado);
+                Empleado empleadoDat = new Empleado(numeroDeEmpleado, nombre, apellido);
+                addListaDeMovimientos(movimientoDat);
+                addListaDeEmpleados(empleadoDat);
+            }
+            dIS.close();
+            /**
+             * añadimos los movimientos del empleado recorriendo el array de Movimientos y comparandolo con el de empleados
+             */
+            for(int x=0;x<listaDeMovimientos.size();x++) {
+            Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
+            String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
+                for(int y=0;x<listaDeEmpleado.size();y++){
+                    Empleado comprobarEmpleado = listaDeEmpleado.get(y);
+                    String numeroDeEmpleadoDeEmpleado = comprobarEmpleado.getNumeroDeEmpleado();
+                    if(numeroDeEmpleadoDeEmpleado==numeroDeEmpleadoDeMovimiento){
+                    listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
+                    }
+                    
+                }
+}
+        }
+        
+        
+
     }
+     private void addListaDeMovimientos(Movimiento movimiento){
+     this.listaDeMovimientos.add(movimiento);
+    }
+     private void addListaDeEmpleados(Empleado empleado){
+     this.listaDeEmpleado.add(empleado);
+     }
 }

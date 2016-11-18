@@ -24,6 +24,13 @@ public class Empleado implements Serializable{
         this.apellido = apellido;
         this.listaDeMovimientos = listaDeMovimiento;
     }
+
+    public Empleado(String numeroDeEmpleado, String nombre, String apellido) {
+        this.numeroDeEmpleado = numeroDeEmpleado;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+    
    
    
     public String getNumeroDeEmpleado() {
@@ -63,16 +70,16 @@ public class Empleado implements Serializable{
     
   
 
-    @Override
-    public String toString() {
-        ArrayList<Movimiento> listaDeMovimientosToString = getListaDeMovimientos();
-        String texto=/*NumeroDeEmpleado:0*/getNumeroDeEmpleado()+"|"/*Nombre:1*/+getNombre()+"|"  /*Apellido:2*/+getApellido();
-        for(int x=0;x<listaDeMovimientosToString.size();x++) {
-        texto= texto +"|"+ listaDeMovimientosToString.get(x);
-            }
-        return texto;
-    }
- 
+   // @Override
+    //public String toString() {
+      //  ArrayList<Movimiento> listaDeMovimientosToString = getListaDeMovimientos();
+    
+   //     String texto=/*NumeroDeEmpleado:0*/getNumeroDeEmpleado()+"|"/*Nombre:1*/+getNombre()+"|"  /*Apellido:2*/+getApellido();
+     //  for(int x=0;x<listaDeMovimientosToString.size();x++) {
+       // texto= texto +"|"+ listaDeMovimientosToString.get(x);
+         //   }
+        //return texto;
+  //  }
 
     
     
