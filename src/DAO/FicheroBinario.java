@@ -109,18 +109,18 @@ public class FicheroBinario
             /**
              * añadimos los movimientos del empleado recorriendo el array de Movimientos y comparandolo con el de empleados
              */
-            for(int x=0;x<listaDeMovimientos.size();x++) {
-            Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
-            String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
-                for(int y=0;x<listaDeEmpleado.size();y++){
+            for (int x = 0; x < listaDeMovimientos.size(); x++) {
+                Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
+                String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
+                for (int y = 0; x < listaDeEmpleado.size(); y++) {
                     Empleado comprobarEmpleado = listaDeEmpleado.get(y);
                     String numeroDeEmpleadoDeEmpleado = comprobarEmpleado.getNumeroDeEmpleado();
-                    if(numeroDeEmpleadoDeEmpleado==numeroDeEmpleadoDeMovimiento){
-                    listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
+                    if (numeroDeEmpleadoDeEmpleado == numeroDeEmpleadoDeMovimiento) {
+                        listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
                     }
-                    
+
                 }
-}
+            }
         }
         
         

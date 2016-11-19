@@ -11,13 +11,14 @@ import java.io.Serializable;
  *
  * @author jesus
  */
-public class Movimiento implements Serializable{ 
-   private String numeroDeMovimiento;
-   private double Importe;
-   private String tipo;
-   private String fecha;
-   private String descripcion;
-   private String numeroDeEmpleado;
+public class Movimiento implements Serializable {
+
+    private String numeroDeMovimiento;
+    private double Importe;
+    private String tipo;
+    private String fecha;
+    private String descripcion;
+    private String numeroDeEmpleado;
 
     public Movimiento(String numeroDeMovimiento, double Importe, String tipo, String fecha, String descripcion, String numeroDeEmpleado) {
         this.numeroDeMovimiento = numeroDeMovimiento;
@@ -75,10 +76,9 @@ public class Movimiento implements Serializable{
     public void setNumeroDeEmpleado(String numeroDeEmpleado) {
         this.numeroDeEmpleado = numeroDeEmpleado;
     }
-  
-    
+
     @Override
     public String toString() {
-        return /*NumeroDeMovimiento:0*/getNumeroDeMovimiento()+"|"/*Importe:1*/+getImporte()+"|"/*Fecha:2*/+getFecha()+"|"/*Descripcion3*/+getDescripcion()+"|"/*NumeroDeEmpleado:4*/+getNumeroDeEmpleado();
+        return /*NumeroDeMovimiento:0*/ getNumeroDeMovimiento() + "|"/*Importe:1*/ + getImporte() + "|"/*Fecha:2*/ + getFecha() + "|"/*Descripcion3*/ + getDescripcion() + "|"/*NumeroDeEmpleado:4*/ + getNumeroDeEmpleado();
     }
 }

@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestionDeMovimientos.modelo;
-
-import javax.xml.parsers.*;
+package DAO;
 
 /**
  *
  * @author jesus
  */
-public class Xml {
-    DocumentBuilderFactory;
-    DocumentBuilder;
-
+public class FicheroXML {
+    
 }

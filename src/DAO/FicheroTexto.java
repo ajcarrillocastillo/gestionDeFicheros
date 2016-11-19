@@ -20,9 +20,10 @@ import java.util.ArrayList;
  * @author jesus
  */
 public class FicheroTexto {
+
     private ArrayList<Empleado> listaDeEmpleado;
-    private ArrayList<Movimiento> listaDeMovimientos ;
-      
+    private ArrayList<Movimiento> listaDeMovimientos;
+
     public FicheroTexto() {
         listaDeEmpleado = new ArrayList<Empleado>();
         listaDeMovimientos = new ArrayList<Movimiento>();
@@ -38,12 +39,12 @@ public class FicheroTexto {
             return ficheroTexto;
         }
     }
-     public void escribirFicheroTxtClientes(String numeroDeEmpleado, String nombre, String apellido, 
-             String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion) throws IOException {
 
-        File f= new File("./ficheroTexto.txt");
+    public void escribirFicheroTxtClientes(String numeroDeEmpleado, String nombre, String apellido,
+            String numeroDeMovimiento, double Importe, String tipo, String fecha, String descripcion) throws IOException {
+
+        File f = new File("./ficheroTexto.txt");
         FileWriter fW;
-
 
         if (!f.exists()) {
             f.createNewFile();
@@ -55,11 +56,12 @@ public class FicheroTexto {
         fW = new FileWriter(f, true);//File Writer, aqui ponemos si es true o false.
         PrintWriter pW = new PrintWriter(fW); //llama a la clase con la que escribiremos en el fichero de texto
 
-        pW.println(numeroDeEmpleado + "|" + nombre + "|" + apellido + "|"  + numeroDeMovimiento
-        +"|"+Importe+"|"+tipo+"|"+fecha+"|"+descripcion+"|");
+        pW.println(numeroDeEmpleado + "|" + nombre + "|" + apellido + "|" + numeroDeMovimiento
+                + "|" + Importe + "|" + tipo + "|" + fecha + "|" + descripcion + "|");
         pW.close(); //Cerramos la clase printWriter
     }
-      public void leerFicheroTxtClientes(String nombreFichero) throws IOException {
+
+    public void leerFicheroTxtClientes(String nombreFichero) throws IOException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -75,19 +77,30 @@ public class FicheroTexto {
         BufferedReader br = new BufferedReader(fR);
         //Aqui escribiremos lo que queremos que lea el fichero.
         //listaDeClientes.removeAll(listaDeClientes);
-        String cadenaClientes = br.readLine();
-                 listaDeClientes.removeAll(listaDeClientes);
-        while (cadenaClientes != null) {
-            // guardamos cada dato del cliente en un array.
-            String[] arrayDatosClientes = cadenaClientes.split("\\|");
-            Clientes a = new Clientes(arrayDatosClientes[0], arrayDatosClientes[1], Integer.parseInt(arrayDatosClientes[2]), Integer.parseInt(arrayDatosClientes[3]));
-            //lo añadimos
-   
-            listaDeClientes.add(a);
-            cadenaClientes = br.readLine();
+        String cadenaTexto = br.readLine();
+        /*listaDeEmpleado.removeAll(listaDeEmpleado);
+        listaDeMovimientos.removeAll(listaDeMovimientos);*/
+        while (cadenaTexto != null) {
+            String[] arrayDatosTexto = cadenaTexto.split("\\|");
+            Empleado empleado = new Empleado(arrayDatosTexto[0], arrayDatosTexto[1], arrayDatosTexto[2]);
+            Movimiento movimiento = new Movimiento(arrayDatosTexto[3], Double.parseDouble(arrayDatosTexto[4]), arrayDatosTexto[5], arrayDatosTexto[6], arrayDatosTexto[7], arrayDatosTexto[0]);
+            listaDeEmpleado.add(empleado);
+            listaDeMovimientos.add(movimiento);
+            cadenaTexto = br.readLine();
         }
-
         br.close();
+        for (int x = 0; x < listaDeMovimientos.size(); x++) {
+            Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
+            String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
+            for (int y = 0; x < listaDeEmpleado.size(); y++) {
+                Empleado comprobarEmpleado = listaDeEmpleado.get(y);
+                String numeroDeEmpleadoDeEmpleado = comprobarEmpleado.getNumeroDeEmpleado();
+                if (numeroDeEmpleadoDeEmpleado == numeroDeEmpleadoDeMovimiento) {
+                    listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
+                }
+
+            }
+        }
     }
 
 }
