@@ -4,17 +4,18 @@
  * and open the template in the editor.
  */
 package gestionDeMovimientos.controlador;
-import gestionDeMovimientos.vista.JFrameVisionadoDeDatos;
+import DAO.FicheroObjetosEmpleado;
+import gestionDeMovimientos.vista.JFrameVisionadoDeEmpleados;
 /**
  *
  * @author jesus
  */
 public class ControladorVisionadoDeDatos {
-       private final JFrameVisionadoDeDatos vistaVisionadoDeDatos;
+       private  JFrameVisionadoDeEmpleados vistaVisionadoDeDatos;
        
-     public ControladorVisionadoDeDatos(JFrameVisionadoDeDatos vistaVisionadoDeDatos) {
-        this.vistaVisionadoDeDatos = vistaVisionadoDeDatos;
-
+      public ControladorVisionadoDeDatos(JFrameVisionadoDeEmpleados visionadoDeDatos) {
+        this.vistaVisionadoDeDatos = visionadoDeDatos;
+        FicheroObjetosEmpleado.devolverFicherosEscritura();
     }
      
       public void AbrirPeliculaMiLista() {

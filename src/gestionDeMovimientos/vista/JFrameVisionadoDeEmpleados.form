@@ -61,53 +61,56 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="0" pref="400" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" alignment="1" pref="493" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="jButtonVerTexto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonVerBinario" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="jButtonVerObjeto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <Component id="jButtonVerXML" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="1" pref="286" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Component id="jScrollPane2" min="-2" pref="257" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButtonVerBinario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonVerObjeto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonVerXML" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonVerTexto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="0" pref="48" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTableVisionadoDeDatos">
+            <Component class="javax.swing.JTable" name="jTableEmpleados">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="7" rowCount="4">
-                    <Column editable="false" title="Numero de empleado" type="java.lang.Object"/>
-                    <Column editable="false" title="Nombre" type="java.lang.Object"/>
-                    <Column editable="false" title="Apellidos" type="java.lang.Object"/>
-                    <Column editable="false" title="Id Movimiento" type="java.lang.Object"/>
-                    <Column editable="false" title="Importe" type="java.lang.Object"/>
-                    <Column editable="false" title="Tipo" type="java.lang.Object"/>
-                    <Column editable="false" title="Fecha" type="java.lang.Object"/>
+                  <Table columnCount="4" rowCount="4">
+                    <Column editable="false" title="Numero De Empleado" type="java.lang.String"/>
+                    <Column editable="false" title="Nombre" type="java.lang.String"/>
+                    <Column editable="false" title="Apellido" type="java.lang.String"/>
+                    <Column editable="false" title="Cantidad De Movimientos" type="java.lang.Integer"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
@@ -137,6 +140,33 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="jButtonVerTexto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Texto"/>
+            <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo Texto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonVerBinario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Binario"/>
+            <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo Binario"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerBinarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonVerObjeto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Objeto"/>
+            <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo Objeto"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonVerXML">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="XML"/>
+            <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo XML"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

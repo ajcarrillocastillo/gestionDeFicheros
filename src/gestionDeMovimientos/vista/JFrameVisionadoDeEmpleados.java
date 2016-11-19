@@ -9,12 +9,12 @@ import gestionDeMovimientos.controlador.ControladorVisionadoDeDatos;
  *
  * @author jesus
  */
-public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
+public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
       private final ControladorVisionadoDeDatos controladorVisionadoDeDatos;
     /**
      * Creates new form visionadoDeDatos
      */
-    public JFrameVisionadoDeDatos() {
+    public JFrameVisionadoDeEmpleados() {
         initComponents();
         controladorVisionadoDeDatos = new ControladorVisionadoDeDatos(this);
     }
@@ -29,44 +29,90 @@ public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableVisionadoDeDatos = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableEmpleados = new javax.swing.JTable();
+        jButtonVerTexto = new javax.swing.JButton();
+        jButtonVerBinario = new javax.swing.JButton();
+        jButtonVerObjeto = new javax.swing.JButton();
+        jButtonVerXML = new javax.swing.JButton();
         jMenuBarVisionadoDeDatos = new javax.swing.JMenuBar();
         jMenuInsertadoDeDatos = new javax.swing.JMenu();
         jMenuItemInsertadoDeDatosGeneral = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTableVisionadoDeDatos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Numero de empleado", "Nombre", "Apellidos", "Id Movimiento", "Importe", "Tipo", "Fecha"
+                "Numero De Empleado", "Nombre", "Apellido", "Cantidad De Movimientos"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTableVisionadoDeDatos);
+        jScrollPane2.setViewportView(jTableEmpleados);
+
+        jButtonVerTexto.setText("Texto");
+        jButtonVerTexto.setToolTipText("Insertar los datos en el archivo Texto");
+
+        jButtonVerBinario.setText("Binario");
+        jButtonVerBinario.setToolTipText("Insertar los datos en el archivo Binario");
+        jButtonVerBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerBinarioActionPerformed(evt);
+            }
+        });
+
+        jButtonVerObjeto.setText("Objeto");
+        jButtonVerObjeto.setToolTipText("Insertar los datos en el archivo Objeto");
+
+        jButtonVerXML.setText("XML");
+        jButtonVerXML.setToolTipText("Insertar los datos en el archivo XML");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(jButtonVerTexto)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonVerBinario)
+                .addGap(26, 26, 26)
+                .addComponent(jButtonVerObjeto)
+                .addGap(31, 31, 31)
+                .addComponent(jButtonVerXML)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonVerBinario)
+                    .addComponent(jButtonVerObjeto)
+                    .addComponent(jButtonVerXML)
+                    .addComponent(jButtonVerTexto))
+                .addGap(0, 48, Short.MAX_VALUE))
         );
 
         jMenuInsertadoDeDatos.setText("Insertar Datos");
@@ -102,6 +148,10 @@ public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
         controladorVisionadoDeDatos.AbrirPeliculaMiLista();
     }//GEN-LAST:event_jMenuItemInsertadoDeDatosGeneralActionPerformed
 
+    private void jButtonVerBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerBinarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonVerBinarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -119,14 +169,18 @@ public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameVisionadoDeDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameVisionadoDeEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameVisionadoDeDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameVisionadoDeEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameVisionadoDeDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameVisionadoDeEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameVisionadoDeDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameVisionadoDeEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -136,7 +190,7 @@ public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                    JFrameVisionadoDeDatos visionadoDeDatosCreado= new JFrameVisionadoDeDatos();
+                    JFrameVisionadoDeEmpleados visionadoDeDatosCreado= new JFrameVisionadoDeEmpleados();
                     visionadoDeDatosCreado.setLocationRelativeTo(null);
                     visionadoDeDatosCreado.setVisible(true);
             }
@@ -144,11 +198,15 @@ public class JFrameVisionadoDeDatos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonVerBinario;
+    private javax.swing.JButton jButtonVerObjeto;
+    private javax.swing.JButton jButtonVerTexto;
+    private javax.swing.JButton jButtonVerXML;
     private javax.swing.JMenuBar jMenuBarVisionadoDeDatos;
     private javax.swing.JMenu jMenuInsertadoDeDatos;
     private javax.swing.JMenuItem jMenuItemInsertadoDeDatosGeneral;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableVisionadoDeDatos;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableEmpleados;
     // End of variables declaration//GEN-END:variables
 }
