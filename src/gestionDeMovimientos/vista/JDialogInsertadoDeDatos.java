@@ -8,6 +8,7 @@ package gestionDeMovimientos.vista;
 import gestionDeMovimientos.controlador.ControladorInsertardoDeDatos;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JTextField;
  * @author jesus
  */
 public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
-    
+
     private ControladorInsertardoDeDatos controladorInsertadoDeDatos;
     private boolean flagNumeroEmpleado = false;
     private boolean flagNombreEmpleado = false;
@@ -23,14 +24,16 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
     private boolean flagIdMovimiento = false;
     private boolean flagImporteMovimiento = false;
     private boolean flagFechaMovimiento = false;
+    private boolean flagDescripcionMovimiento = false;
+
     /**
      * Creates new form JFrameInsertadoDeDatos
      */
     public JDialogInsertadoDeDatos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        controladorInsertadoDeDatos= new ControladorInsertardoDeDatos(this);
-        
+        controladorInsertadoDeDatos = new ControladorInsertardoDeDatos(this);
+
     }
 
     /**
@@ -47,7 +50,7 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
         jTextFieldNumerodeEmpleado = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
         jTextFieldApellido = new javax.swing.JTextField();
-        jTextFieldId = new javax.swing.JTextField();
+        jTextFieldNumeroDeMovimiento = new javax.swing.JTextField();
         jTextFieldImporte = new javax.swing.JTextField();
         jComboBoxTipo = new javax.swing.JComboBox();
         jTextFieldFecha = new javax.swing.JTextField();
@@ -55,6 +58,8 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
         jButtonInsertarBinario = new javax.swing.JButton();
         jButtonInsertarObjeto = new javax.swing.JButton();
         jButtonInsertarXML = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextAreaDescripcion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -70,6 +75,11 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldNumerodeEmpleadoFocusLost(evt);
+            }
+        });
+        jTextFieldNumerodeEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNumerodeEmpleadoKeyTyped(evt);
             }
         });
 
@@ -97,15 +107,20 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
             }
         });
 
-        jTextFieldId.setForeground(new java.awt.Color(126, 126, 126));
-        jTextFieldId.setText("Id");
-        jTextFieldId.setToolTipText("Id de Movimiento");
-        jTextFieldId.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldNumeroDeMovimiento.setForeground(new java.awt.Color(126, 126, 126));
+        jTextFieldNumeroDeMovimiento.setText("Numero de Movimiento");
+        jTextFieldNumeroDeMovimiento.setToolTipText("Id de Movimiento");
+        jTextFieldNumeroDeMovimiento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldIdFocusGained(evt);
+                jTextFieldNumeroDeMovimientoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldIdFocusLost(evt);
+                jTextFieldNumeroDeMovimientoFocusLost(evt);
+            }
+        });
+        jTextFieldNumeroDeMovimiento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNumeroDeMovimientoKeyTyped(evt);
             }
         });
 
@@ -118,6 +133,16 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldImporteFocusLost(evt);
+            }
+        });
+        jTextFieldImporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldImporteActionPerformed(evt);
+            }
+        });
+        jTextFieldImporte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldImporteKeyTyped(evt);
             }
         });
 
@@ -138,53 +163,85 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
 
         jButtonInsertarTexto.setText("Texto");
         jButtonInsertarTexto.setToolTipText("Insertar los datos en el archivo Texto");
+        jButtonInsertarTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarTextoActionPerformed(evt);
+            }
+        });
 
         jButtonInsertarBinario.setText("Binario");
         jButtonInsertarBinario.setToolTipText("Insertar los datos en el archivo Binario");
+        jButtonInsertarBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarBinarioActionPerformed(evt);
+            }
+        });
 
         jButtonInsertarObjeto.setText("Objeto");
         jButtonInsertarObjeto.setToolTipText("Insertar los datos en el archivo Objeto");
+        jButtonInsertarObjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarObjetoActionPerformed(evt);
+            }
+        });
 
         jButtonInsertarXML.setText("XML");
         jButtonInsertarXML.setToolTipText("Insertar los datos en el archivo XML");
+
+        jTextAreaDescripcion.setColumns(20);
+        jTextAreaDescripcion.setForeground(new java.awt.Color(126, 126, 126));
+        jTextAreaDescripcion.setRows(5);
+        jTextAreaDescripcion.setText("Descripción");
+        jTextAreaDescripcion.setToolTipText("Descripción de movimiento");
+        jTextAreaDescripcion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextAreaDescripcionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextAreaDescripcionFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextAreaDescripcion);
 
         javax.swing.GroupLayout jPanelInsertarDatosLayout = new javax.swing.GroupLayout(jPanelInsertarDatos);
         jPanelInsertarDatos.setLayout(jPanelInsertarDatosLayout);
         jPanelInsertarDatosLayout.setHorizontalGroup(
             jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabelInsertarDatos)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
-                        .addComponent(jTextFieldNumerodeEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInsertarDatosLayout.createSequentialGroup()
-                        .addComponent(jButtonInsertarTexto)
-                        .addGap(18, 18, 18)))
-                .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
-                        .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
-                        .addComponent(jButtonInsertarBinario)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButtonInsertarObjeto)
-                        .addGap(31, 31, 31)
-                        .addComponent(jButtonInsertarXML)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelInsertarDatosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
+                            .addGap(242, 242, 242)
+                            .addComponent(jLabelInsertarDatos))
+                        .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
+                                    .addComponent(jButtonInsertarTexto)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonInsertarBinario)
+                                    .addGap(26, 26, 26)
+                                    .addComponent(jButtonInsertarObjeto)
+                                    .addGap(31, 31, 31)
+                                    .addComponent(jButtonInsertarXML))
+                                .addGroup(jPanelInsertarDatosLayout.createSequentialGroup()
+                                    .addComponent(jTextFieldNumerodeEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)
+                                    .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jTextFieldNumeroDeMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(16, 16, 16)
+                            .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         jPanelInsertarDatosLayout.setVerticalGroup(
             jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,11 +252,13 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
                     .addComponent(jTextFieldNumerodeEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNumeroDeMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelInsertarDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsertarBinario)
                     .addComponent(jButtonInsertarObjeto)
@@ -228,82 +287,244 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldNumerodeEmpleadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumerodeEmpleadoFocusGained
-        flagNumeroEmpleado=controladorInsertadoDeDatos.VaciarCampos(evt, jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
     }//GEN-LAST:event_jTextFieldNumerodeEmpleadoFocusGained
 
     private void jTextFieldNumerodeEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumerodeEmpleadoFocusLost
-          if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
-        flagNumeroEmpleado=controladorInsertadoDeDatos.RellenarCampos(evt, "Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldNumerodeEmpleado, 1); 
+        if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
+            flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+
         }
     }//GEN-LAST:event_jTextFieldNumerodeEmpleadoFocusLost
 
     private void jTextFieldNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNombreFocusGained
-       flagNombreEmpleado=controladorInsertadoDeDatos.VaciarCampos(evt,jTextFieldNombre , flagNombreEmpleado);
+        flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
     }//GEN-LAST:event_jTextFieldNombreFocusGained
 
     private void jTextFieldNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNombreFocusLost
         if (jTextFieldNombre.getText().isEmpty()) {
-        flagNombreEmpleado=controladorInsertadoDeDatos.RellenarCampos(evt, "Nombre", jTextFieldNombre, flagNombreEmpleado); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldNombre, 2); 
+            flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+
         }
     }//GEN-LAST:event_jTextFieldNombreFocusLost
 
     private void jTextFieldApellidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldApellidoFocusGained
-       flagApellidoEmpleado=controladorInsertadoDeDatos.VaciarCampos(evt,jTextFieldApellido , flagApellidoEmpleado);
+        flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
     }//GEN-LAST:event_jTextFieldApellidoFocusGained
 
     private void jTextFieldApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldApellidoFocusLost
         if (jTextFieldApellido.getText().isEmpty()) {
-        flagApellidoEmpleado=controladorInsertadoDeDatos.RellenarCampos(evt, "Apellidos", jTextFieldApellido, flagApellidoEmpleado); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldApellido, 2); 
+            flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+
         }
     }//GEN-LAST:event_jTextFieldApellidoFocusLost
 
-    private void jTextFieldIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdFocusGained
-        flagIdMovimiento=controladorInsertadoDeDatos.VaciarCampos(evt,jTextFieldId , flagIdMovimiento);
-    }//GEN-LAST:event_jTextFieldIdFocusGained
+    private void jTextFieldNumeroDeMovimientoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDeMovimientoFocusGained
+        flagIdMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+    }//GEN-LAST:event_jTextFieldNumeroDeMovimientoFocusGained
 
-    private void jTextFieldIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIdFocusLost
-        if (jTextFieldId.getText().isEmpty()) {
-        flagIdMovimiento=controladorInsertadoDeDatos.RellenarCampos(evt, "Id", jTextFieldId, flagIdMovimiento); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldId, 2); 
+    private void jTextFieldNumeroDeMovimientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDeMovimientoFocusLost
+        if (jTextFieldNumeroDeMovimiento.getText().isEmpty()) {
+            flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+
         }
-    }//GEN-LAST:event_jTextFieldIdFocusLost
+    }//GEN-LAST:event_jTextFieldNumeroDeMovimientoFocusLost
 
     private void jTextFieldImporteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldImporteFocusGained
-        flagImporteMovimiento=controladorInsertadoDeDatos.VaciarCampos(evt,jTextFieldImporte , flagImporteMovimiento);
+        flagImporteMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldImporte, flagImporteMovimiento);
     }//GEN-LAST:event_jTextFieldImporteFocusGained
 
     private void jTextFieldImporteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldImporteFocusLost
         if (jTextFieldImporte.getText().isEmpty()) {
-        flagImporteMovimiento=controladorInsertadoDeDatos.RellenarCampos(evt, "Importe", jTextFieldImporte, flagImporteMovimiento); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldImporte, 2); 
+            flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+
         }
     }//GEN-LAST:event_jTextFieldImporteFocusLost
 
     private void jTextFieldFechaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFechaFocusGained
-        flagFechaMovimiento=controladorInsertadoDeDatos.VaciarCampos(evt,jTextFieldFecha , flagFechaMovimiento);
+        flagFechaMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldFecha, flagFechaMovimiento);
     }//GEN-LAST:event_jTextFieldFechaFocusGained
 
     private void jTextFieldFechaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFechaFocusLost
-            if (jTextFieldFecha.getText().isEmpty()) {
-        flagFechaMovimiento=controladorInsertadoDeDatos.RellenarCampos(evt, "20/01/2000", jTextFieldFecha, flagFechaMovimiento); 
-        
-        }else{
-           controladorInsertadoDeDatos.limitarCampos(jTextFieldFecha, 2); 
-        }
+        if (jTextFieldFecha.getText().isEmpty()) {
+            flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+
+        } 
     }//GEN-LAST:event_jTextFieldFechaFocusLost
+
+    private void jTextFieldImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldImporteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldImporteActionPerformed
+
+    private void jTextAreaDescripcionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAreaDescripcionFocusGained
+        flagDescripcionMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextAreaDescripcion, flagDescripcionMovimiento);
+    }//GEN-LAST:event_jTextAreaDescripcionFocusGained
+
+    private void jTextAreaDescripcionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAreaDescripcionFocusLost
+        if (jTextFieldFecha.getText().isEmpty()) {
+            flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+
+        } 
+    }//GEN-LAST:event_jTextAreaDescripcionFocusLost
+
+    private void jButtonInsertarBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarBinarioActionPerformed
+        flagDescripcionMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextAreaDescripcion, flagDescripcionMovimiento);
+        flagFechaMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldFecha, flagFechaMovimiento);
+        flagImporteMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldImporte, flagImporteMovimiento);
+        flagIdMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+        flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
+        flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
+        flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        boolean control = controladorInsertadoDeDatos.InsertarDatosBinario();
+        if (control == false) {
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+
+            }
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+
+            }
+            if (jTextFieldImporte.getText().isEmpty()) {
+                flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+
+            }
+            if (jTextFieldNumeroDeMovimiento.getText().isEmpty()) {
+                flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+
+            }
+            if (jTextFieldApellido.getText().isEmpty()) {
+                flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+
+            }
+            if (jTextFieldNombre.getText().isEmpty()) {
+                flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+
+            }
+            if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
+                flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+
+            }
+        } else {
+            flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+            flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+            flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+            flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+            flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+            flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+            flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        }
+    }//GEN-LAST:event_jButtonInsertarBinarioActionPerformed
+
+    private void jTextFieldNumerodeEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumerodeEmpleadoKeyTyped
+        controladorInsertadoDeDatos.limitadorNumeros(evt);
+    }//GEN-LAST:event_jTextFieldNumerodeEmpleadoKeyTyped
+
+    private void jTextFieldNumeroDeMovimientoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroDeMovimientoKeyTyped
+        controladorInsertadoDeDatos.limitadorNumeros(evt);
+    }//GEN-LAST:event_jTextFieldNumeroDeMovimientoKeyTyped
+
+    private void jTextFieldImporteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldImporteKeyTyped
+      controladorInsertadoDeDatos.limitadorNumeros(evt);
+    }//GEN-LAST:event_jTextFieldImporteKeyTyped
+
+    private void jButtonInsertarTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarTextoActionPerformed
+       flagDescripcionMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextAreaDescripcion, flagDescripcionMovimiento);
+        flagFechaMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldFecha, flagFechaMovimiento);
+        flagImporteMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldImporte, flagImporteMovimiento);
+        flagIdMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+        flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
+        flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
+        flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        boolean control = controladorInsertadoDeDatos.InsertarDatosTexto();
+        if (control == false) {
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+
+            }
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+
+            }
+            if (jTextFieldImporte.getText().isEmpty()) {
+                flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+
+            }
+            if (jTextFieldNumeroDeMovimiento.getText().isEmpty()) {
+                flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+
+            }
+            if (jTextFieldApellido.getText().isEmpty()) {
+                flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+
+            }
+            if (jTextFieldNombre.getText().isEmpty()) {
+                flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+
+            }
+            if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
+                flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+
+            }
+        } else {
+            flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+            flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+            flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+            flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+            flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+            flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+            flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        }
+    }//GEN-LAST:event_jButtonInsertarTextoActionPerformed
+
+    private void jButtonInsertarObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarObjetoActionPerformed
+           flagDescripcionMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextAreaDescripcion, flagDescripcionMovimiento);
+        flagFechaMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldFecha, flagFechaMovimiento);
+        flagImporteMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldImporte, flagImporteMovimiento);
+        flagIdMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+        flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
+        flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
+        flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        boolean control = controladorInsertadoDeDatos.InsertarDatosObjeto();
+        if (control == false) {
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+
+            }
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+
+            }
+            if (jTextFieldImporte.getText().isEmpty()) {
+                flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+
+            }
+            if (jTextFieldNumeroDeMovimiento.getText().isEmpty()) {
+                flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+
+            }
+            if (jTextFieldApellido.getText().isEmpty()) {
+                flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+
+            }
+            if (jTextFieldNombre.getText().isEmpty()) {
+                flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+
+            }
+            if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
+                flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+
+            }
+        } else {
+            flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+            flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+            flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+            flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+            flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+            flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+            flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        }
+    }//GEN-LAST:event_jButtonInsertarObjetoActionPerformed
 
     public boolean isFlagNumeroEmpleado() {
         return flagNumeroEmpleado;
@@ -385,12 +606,12 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
         this.jTextFieldFecha = jTextFieldFecha;
     }
 
-    public JTextField getjTextFieldId() {
-        return jTextFieldId;
+    public JTextField getjTextFieldNumeroDeMovimiento() {
+        return jTextFieldNumeroDeMovimiento;
     }
 
-    public void setjTextFieldId(JTextField jTextFieldId) {
-        this.jTextFieldId = jTextFieldId;
+    public void setjTextFieldNumeroDeMovimiento(JTextField jTextFieldId) {
+        this.jTextFieldNumeroDeMovimiento = jTextFieldId;
     }
 
     public JTextField getjTextFieldImporte() {
@@ -417,9 +638,14 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
         this.jTextFieldNumerodeEmpleado = jTextFieldNumerodeEmpleado;
     }
 
-    
-    
-    
+    public boolean isFlagDescripcionMovimiento() {
+        return flagDescripcionMovimiento;
+    }
+
+    public JTextArea getjTextAreaDescripcion() {
+        return jTextAreaDescripcion;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -471,11 +697,13 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
     private javax.swing.JComboBox jComboBoxTipo;
     private javax.swing.JLabel jLabelInsertarDatos;
     private javax.swing.JPanel jPanelInsertarDatos;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextAreaDescripcion;
     private javax.swing.JTextField jTextFieldApellido;
     private javax.swing.JTextField jTextFieldFecha;
-    private javax.swing.JTextField jTextFieldId;
     private javax.swing.JTextField jTextFieldImporte;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldNumeroDeMovimiento;
     private javax.swing.JTextField jTextFieldNumerodeEmpleado;
     // End of variables declaration//GEN-END:variables
 }

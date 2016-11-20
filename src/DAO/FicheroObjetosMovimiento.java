@@ -26,19 +26,18 @@ public class FicheroObjetosMovimiento {
     public FicheroObjetosMovimiento() {
         listaDeMovimientos = new ArrayList<Movimiento>();
     }
-    private static FicheroObjetosEmpleado ficheroObjetosEmpleado = null;
+    private static FicheroObjetosMovimiento ficheroObjetosMovimiento = null;
 
-    public static FicheroObjetosEmpleado devolverFicherosEscritura() {
+    public static FicheroObjetosMovimiento devolverFicherosEscritura() {
 
-        if (ficheroObjetosEmpleado != null) {
-            return ficheroObjetosEmpleado;
+        if (ficheroObjetosMovimiento != null) {
+            return ficheroObjetosMovimiento;
         } else {
-            ficheroObjetosEmpleado = new FicheroObjetosEmpleado();
-            return ficheroObjetosEmpleado;
+            ficheroObjetosMovimiento = new FicheroObjetosMovimiento();
+            return ficheroObjetosMovimiento;
         }
     }
-        public void escribirFicherosObjEmpleado( String nombre,
-        String apellido, String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion, String numeroDeEmpleado ) throws IOException, ClassNotFoundException
+        public void escribirFicherosObjMovimiento( String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion, String numeroDeEmpleado ) throws IOException, ClassNotFoundException
         {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
