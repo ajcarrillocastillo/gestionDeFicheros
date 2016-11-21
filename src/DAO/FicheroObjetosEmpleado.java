@@ -99,7 +99,7 @@ public class FicheroObjetosEmpleado {
         oOS.close();
     }
         
-         public void leerFicherosObjEmpleado() throws IOException, ClassNotFoundException {
+         public ArrayList leerFicherosObjEmpleado() throws IOException, ClassNotFoundException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -117,5 +117,6 @@ public class FicheroObjetosEmpleado {
         listaDeEmpleado.removeAll(listaDeEmpleado);
         listaDeEmpleado = (ArrayList< Empleado>) ois.readObject();
         ois.close();
+        return listaDeEmpleado;
     }
 }

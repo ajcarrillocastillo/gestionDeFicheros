@@ -57,16 +57,22 @@ public class FicheroTexto {
         PrintWriter pW = new PrintWriter(fW); //llama a la clase con la que escribiremos en el fichero de texto
 
         pW.println(numeroDeEmpleado + "|" + nombre + "|" + apellido + "|" + numeroDeMovimiento
-                + "|" + Importe + "|" + tipo + "|" + fecha + "|" + descripcion + "|");
+                + "|" + Importe + "|" + tipo + "|" + fecha + "|" + descripcion);
         pW.close(); //Cerramos la clase printWriter
     }
 
-    public void leerFicheroTxtClientes(String nombreFichero) throws IOException {
+    /**
+     *
+     * @param eleccion
+     * @return
+     * @throws IOException
+     */
+    public ArrayList leerFicheroTxtEmpleados(int eleccion) throws IOException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
          */
-        File f = new File("./Clientes.txt");
+        File f = new File("./ficheroTexto.txt");
         FileReader fR;
 
         if (!f.exists()) {
@@ -101,6 +107,12 @@ public class FicheroTexto {
 
             }
         }
+        if (eleccion==0){
+        return listaDeEmpleado;
+                }else{
+            return listaDeMovimientos;
+        }
+        
     }
 
 }

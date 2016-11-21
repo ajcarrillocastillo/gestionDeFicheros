@@ -83,7 +83,7 @@ public class FicheroObjetosMovimiento {
         oOS.close();
     }
         
-         public void leerFicherosObjMovimiento() throws IOException, ClassNotFoundException {
+         public ArrayList leerFicherosObjMovimiento() throws IOException, ClassNotFoundException {
         /**
          * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
          * Con el createNewFile creamos el Fichero
@@ -101,5 +101,6 @@ public class FicheroObjetosMovimiento {
         listaDeMovimientos.removeAll(listaDeMovimientos);
         listaDeMovimientos = (ArrayList< Movimiento>) ois.readObject();
         ois.close();
+        return listaDeMovimientos;
     }
 }

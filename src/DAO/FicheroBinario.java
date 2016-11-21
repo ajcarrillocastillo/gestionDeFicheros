@@ -73,7 +73,7 @@ public class FicheroBinario
     }
     
     
-     public void leerFicherosDat() throws IOException {
+     public ArrayList leerFicherosDat(int eleccion) throws IOException {
 
        
           /**
@@ -123,6 +123,11 @@ public class FicheroBinario
             }
         }
         
+            if (eleccion==0){
+        return listaDeEmpleado;
+                }else{
+            return listaDeMovimientos;
+        }
         
 
     }
