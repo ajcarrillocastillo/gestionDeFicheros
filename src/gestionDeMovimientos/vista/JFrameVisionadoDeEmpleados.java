@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 package gestionDeMovimientos.vista;
-import gestionDeMovimientos.controlador.ControladorVisionadoDeDatos;
+import gestionDeMovimientos.controlador.ControladorVisionadoDeEmpleados;
 /**
  *
  * @author jesus
  */
 public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
-      private final ControladorVisionadoDeDatos controladorVisionadoDeDatos;
+      private final ControladorVisionadoDeEmpleados controladorVisionadoDeDatos;
     /**
      * Creates new form visionadoDeDatos
      */
     public JFrameVisionadoDeEmpleados() {
         initComponents();
-        controladorVisionadoDeDatos = new ControladorVisionadoDeDatos(this);
+        controladorVisionadoDeDatos = new ControladorVisionadoDeEmpleados(this);
     }
 
     /**
@@ -67,10 +67,20 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableEmpleados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableEmpleadosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableEmpleados);
 
         jButtonVerTexto.setText("Texto");
         jButtonVerTexto.setToolTipText("Insertar los datos en el archivo Texto");
+        jButtonVerTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerTextoActionPerformed(evt);
+            }
+        });
 
         jButtonVerBinario.setText("Binario");
         jButtonVerBinario.setToolTipText("Insertar los datos en el archivo Binario");
@@ -145,12 +155,20 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemInsertadoDeDatosGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeDatosGeneralActionPerformed
-        controladorVisionadoDeDatos.AbrirPeliculaMiLista();
+        controladorVisionadoDeDatos.AbrirInsertadoDeDatos();
     }//GEN-LAST:event_jMenuItemInsertadoDeDatosGeneralActionPerformed
 
     private void jButtonVerBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerBinarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonVerBinarioActionPerformed
+
+    private void jButtonVerTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerTextoActionPerformed
+     controladorVisionadoDeDatos.RellenarTabla(jTableEmpleados, 0);    // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonVerTextoActionPerformed
+
+    private void jTableEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadosMouseClicked
+   // controladorVisionadoDeDatos.        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableEmpleadosMouseClicked
 
     /**
      * @param args the command line arguments

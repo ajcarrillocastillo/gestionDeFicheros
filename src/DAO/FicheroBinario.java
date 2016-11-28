@@ -77,7 +77,7 @@ public class FicheroBinario
 
        
           /**
-         * Declaramos el ficherp
+         * Declaramos el ficheros
          */
         File f = new File("FicheroDeDatos.dat");
         FileInputStream fIS;
@@ -85,7 +85,7 @@ public class FicheroBinario
             f.createNewFile();
         }
         /**
-         * Leemos los datos de un fichro vinario
+         * Leemos los datos de un fichero binario
          */
         fIS = new FileInputStream(f);
         try (DataInputStream dIS = new DataInputStream(fIS)) {

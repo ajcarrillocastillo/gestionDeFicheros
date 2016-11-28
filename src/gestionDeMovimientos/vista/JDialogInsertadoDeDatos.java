@@ -187,6 +187,11 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
 
         jButtonInsertarXML.setText("XML");
         jButtonInsertarXML.setToolTipText("Insertar los datos en el archivo XML");
+        jButtonInsertarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInsertarXMLActionPerformed(evt);
+            }
+        });
 
         jTextAreaDescripcion.setColumns(20);
         jTextAreaDescripcion.setForeground(new java.awt.Color(126, 126, 126));
@@ -525,6 +530,57 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
             flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
         }
     }//GEN-LAST:event_jButtonInsertarObjetoActionPerformed
+
+    private void jButtonInsertarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarXMLActionPerformed
+       flagDescripcionMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextAreaDescripcion, flagDescripcionMovimiento);
+        flagFechaMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldFecha, flagFechaMovimiento);
+        flagImporteMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldImporte, flagImporteMovimiento);
+        flagIdMovimiento = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+        flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
+        flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
+        flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        boolean control =  controladorInsertadoDeDatos.InsertarDatosXml();;
+        if (control == false) {
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+
+            }
+            if (jTextFieldFecha.getText().isEmpty()) {
+                flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+
+            }
+            if (jTextFieldImporte.getText().isEmpty()) {
+                flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+
+            }
+            if (jTextFieldNumeroDeMovimiento.getText().isEmpty()) {
+                flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+
+            }
+            if (jTextFieldApellido.getText().isEmpty()) {
+                flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+
+            }
+            if (jTextFieldNombre.getText().isEmpty()) {
+                flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+
+            }
+            if (jTextFieldNumerodeEmpleado.getText().isEmpty()) {
+                flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+
+            }
+        } else {
+            flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
+            flagFechaMovimiento = controladorInsertadoDeDatos.RellenarCampos("20/01/2000", jTextFieldFecha, flagFechaMovimiento);
+            flagImporteMovimiento = controladorInsertadoDeDatos.RellenarCampos("Importe", jTextFieldImporte, flagImporteMovimiento);
+            flagIdMovimiento = controladorInsertadoDeDatos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
+            flagApellidoEmpleado = controladorInsertadoDeDatos.RellenarCampos("Apellidos", jTextFieldApellido, flagApellidoEmpleado);
+            flagNombreEmpleado = controladorInsertadoDeDatos.RellenarCampos("Nombre", jTextFieldNombre, flagNombreEmpleado);
+            flagNumeroEmpleado = controladorInsertadoDeDatos.RellenarCampos("Numero", jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
+        }
+        
+       
+    }//GEN-LAST:event_jButtonInsertarXMLActionPerformed
 
     public boolean isFlagNumeroEmpleado() {
         return flagNumeroEmpleado;

@@ -137,6 +137,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableEmpleadosMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -145,6 +148,9 @@
             <Property name="text" type="java.lang.String" value="Texto"/>
             <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo Texto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerTextoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonVerBinario">
           <Properties>

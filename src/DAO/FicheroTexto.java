@@ -49,29 +49,16 @@ public class FicheroTexto {
         if (!f.exists()) {
             f.createNewFile();
         }
-        /**
-         * Forma 1: creamos el file writer antes (Arriba, debajo del file
-         * archivo, lo declaramos). Luego lo usamos en el printWriter
-         */
-        fW = new FileWriter(f, true);//File Writer, aqui ponemos si es true o false.
-        PrintWriter pW = new PrintWriter(fW); //llama a la clase con la que escribiremos en el fichero de texto
 
+        fW = new FileWriter(f, true);
+        PrintWriter pW = new PrintWriter(fW);
         pW.println(numeroDeEmpleado + "|" + nombre + "|" + apellido + "|" + numeroDeMovimiento
                 + "|" + Importe + "|" + tipo + "|" + fecha + "|" + descripcion);
         pW.close(); //Cerramos la clase printWriter
     }
 
-    /**
-     *
-     * @param eleccion
-     * @return
-     * @throws IOException
-     */
     public ArrayList leerFicheroTxtEmpleados(int eleccion) throws IOException {
-        /**
-         * Declaramos todos los Ficheros. con el mkdir creamos el directorio.
-         * Con el createNewFile creamos el Fichero
-         */
+
         File f = new File("./ficheroTexto.txt");
         FileReader fR;
 
@@ -81,11 +68,7 @@ public class FicheroTexto {
 
         fR = new FileReader(f);
         BufferedReader br = new BufferedReader(fR);
-        //Aqui escribiremos lo que queremos que lea el fichero.
-        //listaDeClientes.removeAll(listaDeClientes);
         String cadenaTexto = br.readLine();
-        /*listaDeEmpleado.removeAll(listaDeEmpleado);
-        listaDeMovimientos.removeAll(listaDeMovimientos);*/
         while (cadenaTexto != null) {
             String[] arrayDatosTexto = cadenaTexto.split("\\|");
             Empleado empleado = new Empleado(arrayDatosTexto[0], arrayDatosTexto[1], arrayDatosTexto[2]);

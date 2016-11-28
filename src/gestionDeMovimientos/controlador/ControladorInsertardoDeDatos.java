@@ -9,6 +9,7 @@ import DAO.FicheroBinario;
 import DAO.FicheroObjetosEmpleado;
 import DAO.FicheroObjetosMovimiento;
 import DAO.FicheroTexto;
+import DAO.FicheroXML;
 import gestionDeMovimientos.vista.JDialogInsertadoDeDatos;
 import java.awt.Color;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -176,7 +178,34 @@ public class ControladorInsertardoDeDatos {
         
         return control;
     }
-      
+    public boolean InsertarDatosXml() {
+        boolean control=false;
+        String numeroDeEmpleado =vistaInsertadoDeDatos.getjTextFieldNumerodeEmpleado().getText();
+        String nombre = vistaInsertadoDeDatos.getjTextFieldNombre().getText();
+        String apellido = vistaInsertadoDeDatos.getjTextFieldApellido().getText();
+        String numeroDeMovimiento= vistaInsertadoDeDatos.getjTextFieldNumeroDeMovimiento().getText();
+        String importeString = vistaInsertadoDeDatos.getjTextFieldImporte().getText();
+        String tipo = vistaInsertadoDeDatos.getjComboBoxTipo().getSelectedItem()+"";
+        String fecha = vistaInsertadoDeDatos.getjTextFieldFecha().getText();
+        String descripcion = vistaInsertadoDeDatos.getjTextAreaDescripcion().getText() ;
+        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty()||numeroDeMovimiento.isEmpty()||importeString.isEmpty()||tipo.isEmpty()||fecha.isEmpty()||descripcion.isEmpty())
+        {
+         control=false;
+        JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        }else{
+            try {
+                double importe=Double.parseDouble(importeString);
+                FicheroXML.devolverFicherosEscrituraXML().escribirFicheroXML(numeroDeEmpleado, nombre, apellido, numeroDeMovimiento, importe, tipo, fecha, descripcion);
+                JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Se han insertado los datos correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+                control=true;
+            } catch (TransformerException ex) {
+                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return control;
+    }
 
     //Abrir Insertar Datos   
     public static void AbrirInsertadoDeDatos(JFrame jFrame) {

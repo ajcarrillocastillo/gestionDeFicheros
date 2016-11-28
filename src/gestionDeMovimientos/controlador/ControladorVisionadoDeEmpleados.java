@@ -15,25 +15,26 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author jesus
  */
-public class ControladorVisionadoDeDatos {
+public class ControladorVisionadoDeEmpleados {
 
     private JFrameVisionadoDeEmpleados vistaVisionadoDeDatos;
     private ArrayList<Empleado> listaDeEmpleado;
 
-    public ControladorVisionadoDeDatos(JFrameVisionadoDeEmpleados visionadoDeDatos) {
+    public ControladorVisionadoDeEmpleados(JFrameVisionadoDeEmpleados visionadoDeDatos) {
         this.vistaVisionadoDeDatos = visionadoDeDatos;
         FicheroObjetosEmpleado.devolverFicherosEscritura();
+    }
+    public void creaColumnas(JTable tablaEmpleados){
     }
 
     public void RellenarTabla(JTable tablaEmpleados, int tipoFichero) {
         //Sección 1 
-        DefaultTableModel modelo = (DefaultTableModel) tablaEmpleados.getModel();
+        TableModelNoEditable modelo = (TableModelNoEditable) tablaEmpleados.getModel();
         try {
             switch (tipoFichero) {
                 case 0:
@@ -55,30 +56,34 @@ public class ControladorVisionadoDeDatos {
                     break;
             }
         } catch (IOException ex) {
-            Logger.getLogger(ControladorVisionadoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorVisionadoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ControladorVisionadoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControladorVisionadoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Sección 2
         Object[] fila = new Object[6];
 
         //Sección 3
-        fila[0] = txtNombrecontacto.getText();
-        fila[1] = txtApellidoscontacto.getText();
-        fila[2] = txtEmail.getText();
-        fila[3] = txtTelefono.getText();
-        fila[4] = txtDireccion.getText();
-        fila[5] = cboxSexo.getSelectedItem().toString();
+        fila[0] = listaDeEmpleado.get(0);
+        fila[1] = listaDeEmpleado.get(0);
+        fila[2] = listaDeEmpleado.get(0);
+        fila[3] = listaDeEmpleado.get(0);
+        fila[4] = listaDeEmpleado.get(0);
+        fila[5] = listaDeEmpleado.get(0);
 
         //Sección 4
         modelo.addRow(fila);
 
         //Sección 5
-        tblDatos.setModel(modelo);
+        tablaEmpleados.setModel(modelo);
+        tablaEmpleados.repaint();
 
     }
 
-    public void AbrirPeliculaMiLista() {
+    public void AbrirInsertadoDeDatos() {
         ControladorInsertardoDeDatos.AbrirInsertadoDeDatos(vistaVisionadoDeDatos);
     }
+   /* public void AbrirVerMovimiento(String nombreEmpleado){
+        new contro
+    }*/
 }

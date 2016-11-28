@@ -1,3 +1,5 @@
 1|p|j|1|10.0|Gasto|fecha|sdlj|
 1|p|j|2|10.0|Gasto|fecha|3|
 2|l|t|3|12.0|Gasto|12|dwe|
+4|das|as|4|45.0|Gasto|as|45
+1|nobre|Apellidos|2|3.0|Gasto|132|des
