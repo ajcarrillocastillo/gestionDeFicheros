@@ -29,12 +29,20 @@ public class ControladorVisionadoDeEmpleados {
         this.vistaVisionadoDeDatos = visionadoDeDatos;
         FicheroObjetosEmpleado.devolverFicherosEscritura();
     }
-    public void creaColumnas(JTable tablaEmpleados){
+    public void creaColumnas(TableModelNoEditable modelo){
+        modelo.addColumn("Numero de Empleado");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Cantidad de Movimientos");
     }
 
     public void RellenarTabla(JTable tablaEmpleados, int tipoFichero) {
         //Sección 1 
-        TableModelNoEditable modelo = (TableModelNoEditable) tablaEmpleados.getModel();
+        TableModelNoEditable modelo = new TableModelNoEditable();
+        tablaEmpleados.setModel(modelo);
+        creaColumnas(modelo);
+        
+        
         try {
             switch (tipoFichero) {
                 case 0:
@@ -61,19 +69,16 @@ public class ControladorVisionadoDeEmpleados {
             Logger.getLogger(ControladorVisionadoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Sección 2
-        Object[] fila = new Object[6];
-
-        //Sección 3
-        fila[0] = listaDeEmpleado.get(0);
-        fila[1] = listaDeEmpleado.get(0);
-        fila[2] = listaDeEmpleado.get(0);
-        fila[3] = listaDeEmpleado.get(0);
-        fila[4] = listaDeEmpleado.get(0);
-        fila[5] = listaDeEmpleado.get(0);
-
-        //Sección 4
-        modelo.addRow(fila);
-
+        Object[] columna = new Object[4];
+        
+        for(Empleado e: listaDeEmpleado){
+            columna[0]=e.getNumeroDeEmpleado();
+            columna[1]=e.getApellido();
+            columna[2]=e.getNombre();
+            columna[3]="2";
+        }
+       
+       
         //Sección 5
         tablaEmpleados.setModel(modelo);
         tablaEmpleados.repaint();

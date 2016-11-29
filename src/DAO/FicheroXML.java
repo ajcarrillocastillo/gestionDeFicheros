@@ -6,8 +6,10 @@
 package DAO;
 
 
+import gestionDeMovimientos.modelo.Empleado;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -22,7 +24,10 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -65,9 +70,8 @@ public class FicheroXML {
             //Definimos el elemento Raíz.
             Element elementoRaiz = document.getDocumentElement();
             //Definimos La primera etiqueta, que es Hoteles.
-            //hacemos que recorra todos los hoteles, cada elemento de leerDirectorio es un Hotel.
+          
            
-                //Hacemos que el nombre Del
                 Element EmpleadoNode = document.createElement("Empleado");
                 
                 Element numeroEmpleadoNode = document.createElement("NumeroDeEmpleado");
@@ -132,94 +136,61 @@ public class FicheroXML {
 
         return true;
     }
-    }
-  /*   public boolean escribirFicheroTrabajadoresXML(String nombreFichero) throws TransformerConfigurationException, TransformerException {
-        File rutaPrincipal = new File("./Hoteles");
-        File subruta = new File("./Hoteles/" + nombreFichero);
-        File archivo = new File("./Hoteles/" + nombreFichero + "/" + nombreFichero + "Trabajadores.xml");
-        try {
-            if (!rutaPrincipal.exists()) {
-                rutaPrincipal.mkdir();
-                subruta.mkdir();
-            } else {
-                subruta.mkdir();
-            }
+    //arreglar luego
+     public ArrayList leerFicheroXML(int eleccion) throws ParserConfigurationException, SAXException, IOException {
+        File archivo = new File("FicheroXml.xml");
+        if (!archivo.exists()) {
+            System.out.println("Fichero No existente");
+            return null;
+        }
+        //inicializamos el arraylist.
+        ArrayList<Empleado> listaDeEmpleadoXML = new ArrayList<Empleado>();
 
-            if (!archivo.exists()) {
-                archivo.createNewFile();
-            }
-            //Comentario (averiguar que hace)
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            //Comentario (saber que hace)
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            //Implementamos el DOM
-            DOMImplementation implementation = builder.getDOMImplementation();
-            //Creamos el Documento con los parametros (buscar para que sirve cada uno)
-            Document document = implementation.createDocument(null, "HOTELES", null);
-            //le decimos que versión de xml es.
-            document.setXmlVersion("1.0");
+        //Cargamos el archivo xml-
+        DocumentBuilderFactory cargarArchivoFactory = DocumentBuilderFactory.newInstance();
+        //instanciamos
+        DocumentBuilder db = cargarArchivoFactory.newDocumentBuilder();
+        //parseamos el documento
+        Document document = db.parse(archivo);
+        //Lo normalizamos
+        document.getDocumentElement().normalize();
+        //Ahora vamos a crear una lista de los nodos donde almacenaremos todos los clientes.
+        NodeList listaDeEmpleados = document.getDocumentElement().getElementsByTagName("Empleados");
+        //Inicializamos el nodo donde almacenaremos los items de cada cliente.
+        Node nodoEmpleados;
+        for (int i = 0; i < listaDeEmpleados.getLength(); i++) {
+            nodoEmpleados = listaDeEmpleados.item(i);
+            NodeList NodeListClientes = nodoEmpleados.getChildNodes();
+            Node atributosEmpleados;
+            //Atributos del cliente
+            // Se tienen que inicializar.
+            String dni = null;
+            String nombre = null;
+            int nHabitacion = 0;
+            int nNoches = 0;
 
-            //Definimos el elemento Raíz.
-            Element elementoRaiz = document.getDocumentElement();
-            //Definimos La primera etiqueta, que es Hoteles.
-            Element HotelesNode = document.createElement("HOTELES");
-            //hacemos que recorra todos los hoteles, cada elemento de leerDirectorio es un Hotel.
-            for (int i = 0; i < FicherosEscriturayLectura.devolverFicherosEscritura().leerDirectorio().length; i++) {
-                //Hacemos que el nombre Del
-                Element HotelNode = document.createElement("HOTEL");
-                Text nombreHotelValue = document.createTextNode(FicherosEscriturayLectura.devolverFicherosEscritura().leerDirectorio()[i]);
-                HotelNode.appendChild(nombreHotelValue);
-                
-                //Todos los elementos de los Trabajadores.
-                Element TrabajadoresNode = document.createElement("TRABAJADORES");
-                for (Trabajador t : FicherosEscriturayLectura.devolverFicherosEscritura().getListaDeTrabajadores()) {
-                    //Definimos el nombre Del Trabajador.
-                    Element nombreDelTrabajadorNode = document.createElement("NOMBRETRABAJADOR");
-                    Text NombreDelTrabajadorNodeValue = document.createTextNode(t.getNombre());
-                    nombreDelTrabajadorNode.appendChild(NombreDelTrabajadorNodeValue);
-                    //Definimos el nombreDel cliente.
-                    Element DNITrabajadorNode = document.createElement("DNITRABAJADOR");
-                    Text DNITrabajadorNodeValue = document.createTextNode(t.getDNI());
-                    DNITrabajadorNode.appendChild(DNITrabajadorNodeValue);
-                    //Definimos el nombreDel cliente.
-                    Element ocupacionTrabajadorNode = document.createElement("OCUPACIONTRABAJADOR");
-                    Text ocupacionTrabajadorNodeValue = document.createTextNode(t.getOcupacion());
-                    ocupacionTrabajadorNode.appendChild(ocupacionTrabajadorNodeValue);
-                    //le asignamos los nodos
-                    TrabajadoresNode.appendChild(nombreDelTrabajadorNode);
-                    TrabajadoresNode.appendChild(DNITrabajadorNode);
-                    TrabajadoresNode.appendChild(ocupacionTrabajadorNode);
-                    //listamos los clientes que pertenece a cada trabajador.
-                    for (Clientes ct : t.getListaDeClientes()) {
-                        Element ClienteTrabajadorNode = document.createElement("CLIENTESQUEATIENDEELTRABAJADOR");
-                        Text oClienteTrabajadorNodeValue = document.createTextNode(ct.getNombre());
-                        ClienteTrabajadorNode.appendChild(oClienteTrabajadorNodeValue);
-
-                        //le asignamos el nodo
-                        TrabajadoresNode.appendChild(ClienteTrabajadorNode);
-                    }
-
+            for (int j = 0; j < NodeListClientes.getLength(); j++) {
+                atributosEmpleados = NodeListClientes.item(j);
+                if (atributosEmpleados.getNodeName().equals("NOMBRECLIENTE")) {
+                    nombre = atributosEmpleados.getTextContent();
                 }
-                //Lo añadimos a hoteles.
-                HotelNode.appendChild(TrabajadoresNode);
-                elementoRaiz.appendChild(HotelNode);
-                //con el source generamos el xml
-                Source source = new DOMSource(document);
-                //le indicamos en que fichero se va a guardar pasandole la ruta por parámetro.
-                Result rutaAlmacenFichero = new StreamResult(archivo);
-                // lo transformamos y creamos la instancia
-                Transformer transfomer = TransformerFactory.newInstance().newTransformer();
-                //le pasamos por parametro el xml que generamos y la ruta de almacenaje.
-                transfomer.transform(source, rutaAlmacenFichero);
-            }
+                if (atributosEmpleados.getNodeName().equals("DNICLIENTE")) {
+                    dni = atributosEmpleados.getTextContent();
+                }
+                if (atributosEmpleados.getNodeName().equals("NHABITACIONCLIENTE")) {
+                    nHabitacion = Integer.parseInt(atributosEmpleados.getTextContent());
+                }
+                if (atributosEmpleados.getNodeName().equals("NNOCHES")) {
+                    nNoches = Integer.parseInt(atributosEmpleados.getTextContent());
+                }
 
-        } catch (IOException ioe) {
-            return false;
-        } catch (ParserConfigurationException pce) {
-            return false;
+            }
+            listaDeEmpleadoXML.add(new Empleado(nombre, nombre, dni, null));
+
         }
 
-        return true;
+        return listaDeEmpleadoXML;
     }
+    
+    
 }
-*/

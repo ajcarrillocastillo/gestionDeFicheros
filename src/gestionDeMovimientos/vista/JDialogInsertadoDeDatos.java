@@ -539,7 +539,7 @@ public class JDialogInsertadoDeDatos extends javax.swing.JDialog {
         flagApellidoEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldApellido, flagApellidoEmpleado);
         flagNombreEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNombre, flagNombreEmpleado);
         flagNumeroEmpleado = controladorInsertadoDeDatos.VaciarCampos(jTextFieldNumerodeEmpleado, flagNumeroEmpleado);
-        boolean control =  controladorInsertadoDeDatos.InsertarDatosXml();;
+        boolean control =  controladorInsertadoDeDatos.InsertarDatosXml();
         if (control == false) {
             if (jTextFieldFecha.getText().isEmpty()) {
                 flagDescripcionMovimiento = controladorInsertadoDeDatos.RellenarCampos("Descripción", jTextAreaDescripcion, flagDescripcionMovimiento);
