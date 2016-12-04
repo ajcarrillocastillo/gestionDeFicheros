@@ -67,13 +67,4 @@ public class Empleado implements Serializable {
         this.listaDeMovimientos.add(movimiento);
     }
 
-   // @Override
-    //public String toString() {
-    //  ArrayList<Movimiento> listaDeMovimientosToString = getListaDeMovimientos();
-   //     String texto=/*NumeroDeEmpleado:0*/getNumeroDeEmpleado()+"|"/*Nombre:1*/+getNombre()+"|"  /*Apellido:2*/+getApellido();
-    //  for(int x=0;x<listaDeMovimientosToString.size();x++) {
-    // texto= texto +"|"+ listaDeMovimientosToString.get(x);
-    //   }
-    //return texto;
-    //  }
 }

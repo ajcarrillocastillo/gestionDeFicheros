@@ -19,9 +19,7 @@ public class JDialogInsertadoEmpleados extends javax.swing.JDialog {
     private boolean flagNombreEmpleado = false;
     private boolean flagApellidoEmpleado = false;
 
-    /**
-     * Creates new form JFrameInsertadoDeDatos
-     */
+
     public JDialogInsertadoEmpleados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

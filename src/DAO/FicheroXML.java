@@ -33,7 +33,7 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author Rafa
+ * @author jesus
  */
 public class FicheroXML {
 
@@ -54,28 +54,21 @@ public class FicheroXML {
         boolean existe = false;
         ArrayList<Empleado> listaEmpleados = new ArrayList();
         try {
-         listaEmpleados = leerFicheroXMLEmpleadosReescribir();
-        File f = new File("FicheroXmlEmpleados.xml");
-        
+            listaEmpleados = leerFicheroXMLEmpleadosReescribir();
+            File f = new File("FicheroXmlEmpleados.xml");
+
             if (!f.exists()) {
                 f.createNewFile();
             }
-           
-            //crea la factory
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            //crea el documento
             DocumentBuilder builder = factory.newDocumentBuilder();
-            //Implementamos el DOM
             DOMImplementation implementation = builder.getDOMImplementation();
-            //Creamos el Documento con los parametros (buscar para que sirve cada uno)
             Document d = implementation.createDocument(null, "listaEmpleados", null);
-            //le decimos que versión de xml es.
             d.setXmlVersion("1.0");
 
-            //Definimos el elemento Raíz.
             Element elementoRaiz = d.getDocumentElement();
             Element EmpleadosNode = d.createElement("Empleados");
-            //Definimos La primera etiqueta, que es Hoteles.
 
             for (Empleado e : listaEmpleados) {
                 if (e.getNumeroDeEmpleado().equals(numeroDeEmpleado)) {
@@ -98,7 +91,6 @@ public class FicheroXML {
                 EmpleadoNode.appendChild(numeroEmpleadoNode);
                 EmpleadoNode.appendChild(nombreEmpleadoNode);
                 EmpleadoNode.appendChild(apellidoEmpleadoNode);
-                //lo añadimos a Hoteles
                 EmpleadosNode.appendChild(EmpleadoNode);
 
             }
@@ -121,17 +113,13 @@ public class FicheroXML {
                 EmpleadoNode.appendChild(numeroEmpleadoNode);
                 EmpleadoNode.appendChild(nombreEmpleadoNode);
                 EmpleadoNode.appendChild(apellidoEmpleadoNode);
-                //lo añadimos a Hoteles
                 EmpleadosNode.appendChild(EmpleadoNode);
             }
             elementoRaiz.appendChild(EmpleadosNode);
-            //con el source generamos el xml
             Source s = new DOMSource(d);
-            //le indicamos en que fichero se va a guardar pasandole la ruta por parámetro.
+
             Result rutaAlmacenFichero = new StreamResult(f);
-            // lo transformamos y creamos la instancia
             Transformer transfomer = TransformerFactory.newInstance().newTransformer();
-            //le pasamos por parametro el xml que generamos y la ruta de almacenaje.
             transfomer.transform(s, rutaAlmacenFichero);
         } catch (IOException ex) {
             Logger.getLogger(FicheroXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,8 +148,6 @@ public class FicheroXML {
                 Document doc;
                 doc = dBuilder.parse(f);
 
-                //optional, but recommended
-                //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
                 doc.getDocumentElement().normalize();
 
                 NodeList nList = doc.getElementsByTagName("Empleado");
@@ -205,8 +191,6 @@ public class FicheroXML {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = dBuilder.parse(f);
 
-                //optional, but recommended
-                //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
                 doc.getDocumentElement().normalize();
 
                 NodeList nList = doc.getElementsByTagName("Empleado");
@@ -246,28 +230,25 @@ public class FicheroXML {
         boolean existe = false;
         ArrayList<Movimiento> listaMovimientos = new ArrayList();
         try {
-        listaMovimientos = leerFicheroXMLMovimientos();
-        File f = new File("FicheroXmlMovimientos.xml");
-        
+            listaMovimientos = leerFicheroXMLMovimientos();
+            File f = new File("FicheroXmlMovimientos.xml");
+
             if (!f.exists()) {
                 f.createNewFile();
             }
-            
-            //crea la factory
+
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            //crea el documento
+
             DocumentBuilder builder = factory.newDocumentBuilder();
-            //Implementamos el DOM
+
             DOMImplementation implementation = builder.getDOMImplementation();
-            //Creamos el Documento con los parametros (buscar para que sirve cada uno)
+
             Document d = implementation.createDocument(null, "listaMovimiento", null);
-            //le decimos que versión de xml es.
+
             d.setXmlVersion("1.0");
 
-            //Definimos el elemento Raíz.
             Element elementoRaiz = d.getDocumentElement();
             Element MovimientosNode = d.createElement("Movimientos");
-            //Definimos La primera etiqueta, que es Hoteles.
 
             for (Movimiento m : listaMovimientos) {
                 if (m.getNumeroDeEmpleado().equals(numeroDeEmpleado)) {
@@ -308,7 +289,6 @@ public class FicheroXML {
                 MovimientoNode.appendChild(descripcionNode);
                 MovimientoNode.appendChild(numeroDeEmpleadoNode);
 
-                //lo añadimos a Hoteles
                 MovimientosNode.appendChild(MovimientoNode);
 
             }
@@ -348,18 +328,17 @@ public class FicheroXML {
                 MovimientoNode.appendChild(descripcionNode);
                 MovimientoNode.appendChild(numeroDeEmpleadoNode);
 
-                //lo añadimos a Hoteles
                 MovimientosNode.appendChild(MovimientoNode);
 
             }
             elementoRaiz.appendChild(MovimientosNode);
-            //con el source generamos el xml
+
             Source s = new DOMSource(d);
-            //le indicamos en que fichero se va a guardar pasandole la ruta por parámetro.
+
             Result rutaAlmacenFichero = new StreamResult(f);
-            // lo transformamos y creamos la instancia
+
             Transformer transfomer = TransformerFactory.newInstance().newTransformer();
-            //le pasamos por parametro el xml que generamos y la ruta de almacenaje.
+
             transfomer.transform(s, rutaAlmacenFichero);
         } catch (IOException ex) {
             Logger.getLogger(FicheroXML.class.getName()).log(Level.SEVERE, null, ex);
@@ -390,8 +369,6 @@ public class FicheroXML {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = dBuilder.parse(f);
 
-            //optional, but recommended
-                //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
                 doc.getDocumentElement().normalize();
 
                 NodeList nList = doc.getElementsByTagName("Movimiento");
@@ -424,34 +401,4 @@ public class FicheroXML {
 
     }
 
-    /*
-     public boolean escribirFicheroXMLEmpleados(String numeroDeEmpleado, String nombre,
-     String apellido, String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion) throws TransformerConfigurationException, TransformerException {
-     ////////////////////////////        
-     Element MovimientosNode = document.createElement("Movimientos");
-     Element MovimientoNode  = document.createElement("Movimiento");
-                 
-     Element importeMovimientoNode = document.createElement("importeMovimiento");
-     Text importeMovimiento = document.createTextNode(Importe+"");
-     importeMovimientoNode.appendChild(importeMovimiento);
-                
-     Element tipoMovimientoNode = document.createElement("tipoMovimientoNode");
-     Text tipoMovimiento = document.createTextNode(tipo);
-     tipoMovimientoNode.appendChild(tipoMovimiento);
-                
-     Element fechaMovimientoNode = document.createElement("fechaMovimiento");
-     Text fechaMovimiento = document.createTextNode(fecha);
-     fechaMovimientoNode.appendChild(fechaMovimiento);
-                
-     Element descripcionMovimientoNode = document.createElement("descripcionMovimiento");
-     Text descripcionMovimiento = document.createTextNode(descripcion);
-     descripcionMovimientoNode.appendChild(descripcionMovimiento);
-                
-     MovimientoNode.appendChild(importeMovimientoNode);
-     MovimientoNode.appendChild(tipoMovimientoNode);
-     MovimientoNode.appendChild(fechaMovimientoNode);
-     MovimientoNode.appendChild(descripcionMovimientoNode);
-                
-     MovimientosNode.appendChild(MovimientoNode);
-     */
 }

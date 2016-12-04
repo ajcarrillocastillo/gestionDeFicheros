@@ -14,9 +14,7 @@ import javax.swing.JTable;
  */
 public class JDialogVerMovimientos extends javax.swing.JDialog {
     private ControladorVisionadoDeMovimientos controladorVerMovimientos;
-    /**
-     * Creates new form JDialogVerMovimientos
-     */
+
     public JDialogVerMovimientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

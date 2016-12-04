@@ -22,7 +22,6 @@ public class JDialogInsertadoMovimientos extends javax.swing.JDialog {
     private boolean flagFechaMovimiento = false;
     private boolean flagDescripcionMovimiento = false;
      private ControladorInsertardoDeMovimientos controladorAnnadirMovimientos;
-    /** Creates new form JDialogInsertadoMovimientos */
     public JDialogInsertadoMovimientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -68,11 +67,6 @@ public class JDialogInsertadoMovimientos extends javax.swing.JDialog {
         jLabelInsertarMovimiento.setText("Insertar Movimiento");
 
         jComboBoxNumeroDeEmpleado.setToolTipText("Numero de Empleado");
-        jComboBoxNumeroDeEmpleado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxNumeroDeEmpleadoActionPerformed(evt);
-            }
-        });
 
         jTextFieldNumeroDeMovimiento.setForeground(new java.awt.Color(126, 126, 126));
         jTextFieldNumeroDeMovimiento.setText("Numero de Movimiento");
@@ -100,11 +94,6 @@ public class JDialogInsertadoMovimientos extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldImporteFocusLost(evt);
-            }
-        });
-        jTextFieldImporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldImporteActionPerformed(evt);
             }
         });
         jTextFieldImporte.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -226,10 +215,6 @@ public class JDialogInsertadoMovimientos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jTextFieldImporteFocusLost
 
-    private void jTextFieldImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldImporteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldImporteActionPerformed
-
     private void jTextFieldImporteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldImporteKeyTyped
         controladorAnnadirMovimientos.limitadorNumeros(evt);
     }//GEN-LAST:event_jTextFieldImporteKeyTyped
@@ -275,10 +260,6 @@ public class JDialogInsertadoMovimientos extends javax.swing.JDialog {
             flagIdMovimiento = controladorAnnadirMovimientos.RellenarCampos("Numero de Movimiento", jTextFieldNumeroDeMovimiento, flagIdMovimiento);
          }
     }//GEN-LAST:event_jButtonInsertarActionPerformed
-
-    private void jComboBoxNumeroDeEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNumeroDeEmpleadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxNumeroDeEmpleadoActionPerformed
     public boolean isFlagIdMovimiento() {
         return flagIdMovimiento;
     }

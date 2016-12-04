@@ -23,20 +23,20 @@ public class ControladorVisionadoDeMovimientos {
         listaDeMovimientos=listaMovimientosEmpleados;
         
         VistaverMovimientos = new JDialogVerMovimientos(null, true);
-        //Le decimos quien es su Controlador.
+        
         VistaverMovimientos.setControladorVerMovimientos(this);
-        //Le ponemos la Localización en el centro
+       
         VistaverMovimientos.setLocationRelativeTo(null);
-        //Creamos el TableModel
+        
         TableModelNEMovimientos = new TableModelNoEditable();
-        //Le decimos quien va a ser su modelo de tabla. en este caso será noEditable.
+        
         VistaverMovimientos.getjTableMovimientos().setModel(TableModelNEMovimientos);
-        //Listar CLientes y asignarColumnaVerMovimientos
+       
         asignarColumnaVerMovimientos(TableModelNEMovimientos);
-        //Según lo que pase (de 0 a 3) cargará un listar u otro.
+        
         listarMovimientos(TableModelNEMovimientos);
         
-        //Ponemos la verMovimientos visible.
+       
         VistaverMovimientos.setVisible(true);
     }
      public void asignarColumnaVerMovimientos(TableModelNoEditable modeloTabla){
@@ -46,16 +46,13 @@ public class ControladorVisionadoDeMovimientos {
         modeloTabla.addColumn("Fecha");
         modeloTabla.addColumn("Descripción");
     }
-   /**
-     * Listar Movimientos con la extension txt.
-     * @param modeloTabla 
-     */
+
     public void listarMovimientos(TableModelNoEditable modeloTabla){
-        //borra los registros de la tabla y los vuelve a rellenar
+        
         while(modeloTabla.getRowCount()>0){
             modeloTabla.removeRow(0);
         }
-        //Creamos numero de columnas que habrá:
+        
         Object[] columna = new Object[5];
        
         

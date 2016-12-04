@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class FicheroObjetosMovimiento {
 
     private ArrayList<Movimiento> listaDeMovimientos;
-    private Movimiento movimiento;
 
     public FicheroObjetosMovimiento() {
         listaDeMovimientos = new ArrayList<Movimiento>();

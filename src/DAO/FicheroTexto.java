@@ -61,7 +61,7 @@ public class FicheroTexto {
 
                 pW.println(numeroDeEmpleado + "|" + nombre + "|" + apellido);
 
-                pW.close(); //Cerramos la clase printWriter
+                pW.close(); 
             }
         }
         return existe;
@@ -89,7 +89,7 @@ public class FicheroTexto {
 
                 pW.println(numeroDeMovimiento+"|"+Importe+"|"+tipo+"|"+fecha+"|"+descripcion+"|"+numeroDeEmpleado);
 
-                pW.close(); //Cerramos la clase printWriter
+                pW.close(); 
             }
         }
         return existe;
@@ -123,7 +123,7 @@ public class FicheroTexto {
 
             cadenaTexto = br.readLine();
         }
-        //recorro lista de movimientos
+        
         
         return listaDeEmpleado;
 
@@ -148,7 +148,7 @@ public class FicheroTexto {
 
             cadenaTexto = br.readLine();
         }
-        //recorro lista de movimientos
+       
         
         return listaDeMovimientos;
 

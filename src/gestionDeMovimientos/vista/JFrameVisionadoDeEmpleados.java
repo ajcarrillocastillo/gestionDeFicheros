@@ -12,9 +12,6 @@ import javax.swing.JTable;
  */
 public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
       private final ControladorVisionadoDeEmpleados controladorVisionadoDeEmpleados;
-    /**
-     * Creates new form visionadoDeDatos
-     */
     public JFrameVisionadoDeEmpleados() {
         initComponents();
         controladorVisionadoDeEmpleados = new ControladorVisionadoDeEmpleados(this);
@@ -225,7 +222,7 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
 
     private void jMenuItemInsertadoDeMovimientosTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosTextoActionPerformed
      
-       controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(0);  // TODO add your handling code here:
+       controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(0);  
     }//GEN-LAST:event_jMenuItemInsertadoDeMovimientosTextoActionPerformed
 
     private void jMenuItemInsertadoDeMovimientosBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosBinarioActionPerformed

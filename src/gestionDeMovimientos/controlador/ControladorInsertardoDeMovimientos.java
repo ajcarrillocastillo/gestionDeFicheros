@@ -25,7 +25,6 @@ import javax.xml.transform.TransformerException;
 public class ControladorInsertardoDeMovimientos {
 
     private ArrayList<Empleado> listaDeEmpleados;
-    private int tipoDeFichero;
     private JDialogInsertadoMovimientos vistaMovimientos;
     private int tipoDeDatos;
 

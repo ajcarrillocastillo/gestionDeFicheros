@@ -7,7 +7,6 @@ package gestionDeMovimientos.controlador;
 
 import DAO.FicheroBinario;
 import DAO.FicheroObjetosEmpleado;
-import DAO.FicheroObjetosMovimiento;
 import DAO.FicheroTexto;
 import DAO.FicheroXML;
 import gestionDeMovimientos.vista.JDialogInsertadoEmpleados;
@@ -22,7 +21,6 @@ import javax.swing.JTextField;
 import javax.xml.transform.TransformerException;
 
 /**
- *
  * @author jesus
  */
 public class ControladorInsertardoDeEmpleados {
@@ -33,12 +31,7 @@ public class ControladorInsertardoDeEmpleados {
         this.vistaInsertadoDeDatos = vistaInsertadoDeDatos;
     }
 
-    //vaciar campos
-    /**
-     *
-     * @param evt
-     * @param seleccion
-     */
+
     public boolean VaciarCampos( JTextField campo, boolean flag) {
         if (flag == false) {
             campo.setText("");
@@ -201,8 +194,7 @@ public class ControladorInsertardoDeEmpleados {
         
         return control;
     }
-      
-    //Abrir Insertar Datos   
+        
     public static void AbrirInsertadoDeDatos(JFrame jFrame) {
         JDialogInsertadoEmpleados nuevaVistaInsertadoDeDatos = new JDialogInsertadoEmpleados(jFrame, true);
         nuevaVistaInsertadoDeDatos.setLocationRelativeTo(null);

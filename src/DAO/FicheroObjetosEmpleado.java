@@ -24,7 +24,10 @@ public class FicheroObjetosEmpleado {
         listaDeMovimientos = new ArrayList<Movimiento>();
     }
     private static FicheroObjetosEmpleado ficheroObjetosEmpleado = null;
-
+    /**
+     * singleton
+     * @return 
+     */
     public static FicheroObjetosEmpleado devolver() {
 
         if (ficheroObjetosEmpleado != null) {
@@ -34,7 +37,15 @@ public class FicheroObjetosEmpleado {
             return ficheroObjetosEmpleado;
         }
     }
-
+    /**
+     * 
+     * @param numeroDeEmpleado
+     * @param nombre
+     * @param apellido
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     public boolean escribirFicherosObjEmpleado(String numeroDeEmpleado, String nombre,
             String apellido) throws IOException, ClassNotFoundException {
         boolean existe = false;

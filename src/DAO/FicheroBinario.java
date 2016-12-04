@@ -32,6 +32,8 @@ public class FicheroBinario {
     }
     private static FicheroBinario ficheroBinario = null;
 
+    //Singleton
+
     public static FicheroBinario devolver() {
 
         if (ficheroBinario != null) {
@@ -43,12 +45,21 @@ public class FicheroBinario {
     }
 
     /**
-     * escribimos los datos en un fichero binario
+     * escribe el fichero de Empleados
+     *
+     * @param numeroDeEmpleado
+     * @param nombre
+     * @param apellido
+     * @return boolean para saber si existe
+     * @throws IOException
      */
+
     public boolean escribirFicheroEmpleadosDat(String numeroDeEmpleado, String nombre,
             String apellido) throws IOException {
         boolean existe = false;
-
+        /**
+         * Recogemos la lista de empleados y comprobamos si existe
+         */
         ArrayList<Empleado> listaDeEmpleadosComparar = leerFicherosEmpleadosDat();
         for (Empleado e : listaDeEmpleadosComparar) {
             if (e.getNumeroDeEmpleado().equals(numeroDeEmpleado)) {
@@ -58,7 +69,8 @@ public class FicheroBinario {
         if (!existe) {
 
             /**
-             * Declaramos el fichero
+             * Declaramos el fichero Esto se hace en todas las de escritura y
+             * lectutra igual
              */
             File f = new File("./FicheroEmpleadosDeDatos.dat");
             FileOutputStream fOS;
@@ -79,11 +91,24 @@ public class FicheroBinario {
         return existe;
     }
 
+    /**
+     * Escribimos el fichero de movimientos
+     *
+     * @param numeroDeMovimiento
+     * @param Importe
+     * @param tipo
+     * @param fecha
+     * @param descripcion
+     * @param numeroDeEmpleado
+     * @return boolean para saber si existe
+     * @throws IOException
+     */
     public boolean escribirFicheroMovimientoDat(String numeroDeMovimiento, double Importe, String tipo, String fecha, String descripcion, String numeroDeEmpleado) throws IOException {
-        /**
-         * Declaramos el fichero
-         */
+
         boolean existe = false;
+        /**
+         * comprobamos si existe el movimiento en ese empleado
+         */
         ArrayList<Movimiento> listaComprobarMovimiento = new ArrayList();
         listaComprobarMovimiento = leerFicherosMovimientoDat();
         for (Movimiento m : listaComprobarMovimiento) {
@@ -122,21 +147,20 @@ public class FicheroBinario {
         return existe;
     }
 
+    /**
+     * leemos el fichero de Empleados
+     *
+     * @return devolvemos la lista de empleados
+     * @throws IOException
+     */
     public ArrayList leerFicherosEmpleadosDat() throws IOException {
 
-      
-        /**
-         * Declaramos el ficheros
-         */
         File f = new File("FicheroEmpleadosDeDatos.dat");
         FileInputStream fIS;
         if (!f.exists()) {
             f.createNewFile();
         }
 
-        /**
-         * Leemos los datos de un fichero binario
-         */
         fIS = new FileInputStream(f);
         try (DataInputStream dIS = new DataInputStream(fIS)) {
             listaDeMovimientos.removeAll(listaDeMovimientos);
@@ -148,7 +172,9 @@ public class FicheroBinario {
                 String nombre = dIS.readUTF();
                 String apellido = dIS.readUTF();
 
-                
+                /**
+                 * rellenamos la lista de movimientos de los empleados
+                 */
                 for (Movimiento m : listaDeMovimientos) {
                     if (m.getNumeroDeEmpleado().equals(numeroDeEmpleado)) {
                         listaDeMovimientosEmpleado.add(m);
@@ -163,24 +189,25 @@ public class FicheroBinario {
         }
 
     }
-
+    /**
+     * lee el fichero movimientos
+     * @return Arraylist de Movimientos
+     * @throws IOException 
+     */
     public ArrayList leerFicherosMovimientoDat() throws IOException {
 
-        /**
-         * Declaramos el ficheros
-         */
         File f = new File("FicheroMovimientosDeDatos.dat");
         FileInputStream fIS;
         if (!f.exists()) {
             f.createNewFile();
         }
 
-        /**
-         * Leemos los datos de un fichero binario
-         */
         fIS = new FileInputStream(f);
         try (DataInputStream dIS = new DataInputStream(fIS)) {
             listaDeMovimientos.removeAll(listaDeMovimientos);
+            /**
+             * recorremos el fichero para rellenar la lista de movimientos
+             */
             while (dIS.available() > 0) {
                 String numeroDeMovimiento = dIS.readUTF();
                 double Importe = dIS.readDouble();
@@ -188,8 +215,6 @@ public class FicheroBinario {
                 String fecha = dIS.readUTF();
                 String descripcion = dIS.readUTF();
                 String numeroDeEmpleado = dIS.readUTF();
-
-                //leer movimientos
                 Movimiento movimientoDat = new Movimiento(numeroDeMovimiento, Importe, tipo, fecha, descripcion, numeroDeEmpleado);
                 addListaDeMovimientos(movimientoDat);
             }
@@ -198,11 +223,17 @@ public class FicheroBinario {
         }
         return listaDeMovimientos;
     }
-
+    /**
+     * 
+     * @param movimiento 
+     */
     private void addListaDeMovimientos(Movimiento movimiento) {
         this.listaDeMovimientos.add(movimiento);
     }
-
+    /**
+     * 
+     * @param empleado 
+     */
     private void addListaDeEmpleados(Empleado empleado) {
         this.listaDeEmpleado.add(empleado);
     }
