@@ -9,13 +9,49 @@
             <Property name="text" type="java.lang.String" value="Insertar Datos"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeDatosGeneral">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeEmpleados">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Insertar Movimientos"/>
+                <Property name="text" type="java.lang.String" value="Insertar Empleados"/>
                 <Property name="toolTipText" type="java.lang.String" value="Inserta todos los datos de movimientos y usuario"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeDatosGeneralActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeEmpleadosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeMovimientosTexto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Insertar Movimientos Texto"/>
+                <Property name="toolTipText" type="java.lang.String" value="Inserta todos los datos de movimientos y usuario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeMovimientosTextoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeMovimientosBinario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Insertar Movimientos Binario"/>
+                <Property name="toolTipText" type="java.lang.String" value="Inserta todos los datos de movimientos y usuario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeMovimientosBinarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeMovimientosObjeto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Insertar Movimientos Objeto"/>
+                <Property name="toolTipText" type="java.lang.String" value="Inserta todos los datos de movimientos y usuario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeMovimientosObjetoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemInsertadoDeMovimientosXML">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Insertar Movimientos XML"/>
+                <Property name="toolTipText" type="java.lang.String" value="Inserta todos los datos de movimientos y usuario"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemInsertadoDeMovimientosXMLActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -166,12 +202,18 @@
             <Property name="text" type="java.lang.String" value="Objeto"/>
             <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo Objeto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerObjetoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonVerXML">
           <Properties>
             <Property name="text" type="java.lang.String" value="XML"/>
             <Property name="toolTipText" type="java.lang.String" value="Insertar los datos en el archivo XML"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerXMLActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

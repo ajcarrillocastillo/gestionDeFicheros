@@ -5,12 +5,15 @@
  */
 package gestionDeMovimientos.vista;
 
+import gestionDeMovimientos.controlador.ControladorVisionadoDeMovimientos;
+import javax.swing.JTable;
+
 /**
  *
  * @author jesus
  */
 public class JDialogVerMovimientos extends javax.swing.JDialog {
-
+    private ControladorVisionadoDeMovimientos controladorVerMovimientos;
     /**
      * Creates new form JDialogVerMovimientos
      */
@@ -19,6 +22,19 @@ public class JDialogVerMovimientos extends javax.swing.JDialog {
         initComponents();
     }
 
+    public void setControladorVerMovimientos(ControladorVisionadoDeMovimientos controladorVerMovimientos) {
+        this.controladorVerMovimientos = controladorVerMovimientos;
+    }
+
+    public void setjTableMovimientos(JTable jTableMovimientos) {
+        this.jTableMovimientos = jTableMovimientos;
+    }
+
+    public JTable getjTableMovimientos() {
+        return jTableMovimientos;
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

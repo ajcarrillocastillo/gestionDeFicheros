@@ -5,18 +5,19 @@
  */
 package gestionDeMovimientos.vista;
 import gestionDeMovimientos.controlador.ControladorVisionadoDeEmpleados;
+import javax.swing.JTable;
 /**
  *
  * @author jesus
  */
 public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
-      private final ControladorVisionadoDeEmpleados controladorVisionadoDeDatos;
+      private final ControladorVisionadoDeEmpleados controladorVisionadoDeEmpleados;
     /**
      * Creates new form visionadoDeDatos
      */
     public JFrameVisionadoDeEmpleados() {
         initComponents();
-        controladorVisionadoDeDatos = new ControladorVisionadoDeEmpleados(this);
+        controladorVisionadoDeEmpleados = new ControladorVisionadoDeEmpleados(this);
     }
 
     /**
@@ -37,7 +38,11 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
         jButtonVerXML = new javax.swing.JButton();
         jMenuBarVisionadoDeDatos = new javax.swing.JMenuBar();
         jMenuInsertadoDeDatos = new javax.swing.JMenu();
-        jMenuItemInsertadoDeDatosGeneral = new javax.swing.JMenuItem();
+        jMenuItemInsertadoDeEmpleados = new javax.swing.JMenuItem();
+        jMenuItemInsertadoDeMovimientosTexto = new javax.swing.JMenuItem();
+        jMenuItemInsertadoDeMovimientosBinario = new javax.swing.JMenuItem();
+        jMenuItemInsertadoDeMovimientosObjeto = new javax.swing.JMenuItem();
+        jMenuItemInsertadoDeMovimientosXML = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,9 +97,19 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
 
         jButtonVerObjeto.setText("Objeto");
         jButtonVerObjeto.setToolTipText("Insertar los datos en el archivo Objeto");
+        jButtonVerObjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerObjetoActionPerformed(evt);
+            }
+        });
 
         jButtonVerXML.setText("XML");
         jButtonVerXML.setToolTipText("Insertar los datos en el archivo XML");
+        jButtonVerXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerXMLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,14 +142,50 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
 
         jMenuInsertadoDeDatos.setText("Insertar Datos");
 
-        jMenuItemInsertadoDeDatosGeneral.setText("Insertar Movimientos");
-        jMenuItemInsertadoDeDatosGeneral.setToolTipText("Inserta todos los datos de movimientos y usuario");
-        jMenuItemInsertadoDeDatosGeneral.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemInsertadoDeEmpleados.setText("Insertar Empleados");
+        jMenuItemInsertadoDeEmpleados.setToolTipText("Inserta todos los datos de movimientos y usuario");
+        jMenuItemInsertadoDeEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemInsertadoDeDatosGeneralActionPerformed(evt);
+                jMenuItemInsertadoDeEmpleadosActionPerformed(evt);
             }
         });
-        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeDatosGeneral);
+        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeEmpleados);
+
+        jMenuItemInsertadoDeMovimientosTexto.setText("Insertar Movimientos Texto");
+        jMenuItemInsertadoDeMovimientosTexto.setToolTipText("Inserta todos los datos de movimientos y usuario");
+        jMenuItemInsertadoDeMovimientosTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertadoDeMovimientosTextoActionPerformed(evt);
+            }
+        });
+        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeMovimientosTexto);
+
+        jMenuItemInsertadoDeMovimientosBinario.setText("Insertar Movimientos Binario");
+        jMenuItemInsertadoDeMovimientosBinario.setToolTipText("Inserta todos los datos de movimientos y usuario");
+        jMenuItemInsertadoDeMovimientosBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertadoDeMovimientosBinarioActionPerformed(evt);
+            }
+        });
+        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeMovimientosBinario);
+
+        jMenuItemInsertadoDeMovimientosObjeto.setText("Insertar Movimientos Objeto");
+        jMenuItemInsertadoDeMovimientosObjeto.setToolTipText("Inserta todos los datos de movimientos y usuario");
+        jMenuItemInsertadoDeMovimientosObjeto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertadoDeMovimientosObjetoActionPerformed(evt);
+            }
+        });
+        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeMovimientosObjeto);
+
+        jMenuItemInsertadoDeMovimientosXML.setText("Insertar Movimientos XML");
+        jMenuItemInsertadoDeMovimientosXML.setToolTipText("Inserta todos los datos de movimientos y usuario");
+        jMenuItemInsertadoDeMovimientosXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertadoDeMovimientosXMLActionPerformed(evt);
+            }
+        });
+        jMenuInsertadoDeDatos.add(jMenuItemInsertadoDeMovimientosXML);
 
         jMenuBarVisionadoDeDatos.add(jMenuInsertadoDeDatos);
 
@@ -154,21 +205,56 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItemInsertadoDeDatosGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeDatosGeneralActionPerformed
-        controladorVisionadoDeDatos.AbrirInsertadoDeDatos();
-    }//GEN-LAST:event_jMenuItemInsertadoDeDatosGeneralActionPerformed
+    private void jMenuItemInsertadoDeEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeEmpleadosActionPerformed
+        controladorVisionadoDeEmpleados.AbrirInsertadoDeEmpleados();
+    }//GEN-LAST:event_jMenuItemInsertadoDeEmpleadosActionPerformed
 
     private void jButtonVerBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerBinarioActionPerformed
-        // TODO add your handling code here:
+      controladorVisionadoDeEmpleados.RellenarTabla(1);
     }//GEN-LAST:event_jButtonVerBinarioActionPerformed
 
     private void jButtonVerTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerTextoActionPerformed
-     controladorVisionadoDeDatos.RellenarTabla(jTableEmpleados, 0);    // TODO add your handling code here:
+     controladorVisionadoDeEmpleados.RellenarTabla(0); 
     }//GEN-LAST:event_jButtonVerTextoActionPerformed
 
     private void jTableEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEmpleadosMouseClicked
-   // controladorVisionadoDeDatos.        // TODO add your handling code here:
+   
+        controladorVisionadoDeEmpleados.AbrirVerMovimiento(evt, jTableEmpleados);
+        
     }//GEN-LAST:event_jTableEmpleadosMouseClicked
+
+    private void jMenuItemInsertadoDeMovimientosTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosTextoActionPerformed
+     
+       controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(0);  // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemInsertadoDeMovimientosTextoActionPerformed
+
+    private void jMenuItemInsertadoDeMovimientosBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosBinarioActionPerformed
+       controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(1); 
+    }//GEN-LAST:event_jMenuItemInsertadoDeMovimientosBinarioActionPerformed
+
+    private void jMenuItemInsertadoDeMovimientosObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosObjetoActionPerformed
+        controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(2); 
+    }//GEN-LAST:event_jMenuItemInsertadoDeMovimientosObjetoActionPerformed
+
+    private void jMenuItemInsertadoDeMovimientosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertadoDeMovimientosXMLActionPerformed
+        controladorVisionadoDeEmpleados.AbrirInsertadoDeMovimientos(3); 
+    }//GEN-LAST:event_jMenuItemInsertadoDeMovimientosXMLActionPerformed
+
+    private void jButtonVerObjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerObjetoActionPerformed
+        controladorVisionadoDeEmpleados.RellenarTabla(2); 
+    }//GEN-LAST:event_jButtonVerObjetoActionPerformed
+
+    private void jButtonVerXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerXMLActionPerformed
+       controladorVisionadoDeEmpleados.RellenarTabla(3); 
+    }//GEN-LAST:event_jButtonVerXMLActionPerformed
+
+    public JTable getjTableEmpleados() {
+        return jTableEmpleados;
+    }
+
+    public void setjTableEmpleados(JTable jTableEmpleados) {
+        this.jTableEmpleados = jTableEmpleados;
+    }
 
     /**
      * @param args the command line arguments
@@ -222,7 +308,11 @@ public class JFrameVisionadoDeEmpleados extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVerXML;
     private javax.swing.JMenuBar jMenuBarVisionadoDeDatos;
     private javax.swing.JMenu jMenuInsertadoDeDatos;
-    private javax.swing.JMenuItem jMenuItemInsertadoDeDatosGeneral;
+    private javax.swing.JMenuItem jMenuItemInsertadoDeEmpleados;
+    private javax.swing.JMenuItem jMenuItemInsertadoDeMovimientosBinario;
+    private javax.swing.JMenuItem jMenuItemInsertadoDeMovimientosObjeto;
+    private javax.swing.JMenuItem jMenuItemInsertadoDeMovimientosTexto;
+    private javax.swing.JMenuItem jMenuItemInsertadoDeMovimientosXML;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableEmpleados;

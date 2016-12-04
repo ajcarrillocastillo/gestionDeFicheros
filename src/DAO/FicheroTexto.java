@@ -30,7 +30,7 @@ public class FicheroTexto {
     }
     private static FicheroTexto ficheroTexto = null;
 
-    public static FicheroTexto devolverFicherosEscritura() {
+    public static FicheroTexto devolver() {
 
         if (ficheroTexto != null) {
             return ficheroTexto;
@@ -51,7 +51,9 @@ public class FicheroTexto {
         }
         ArrayList<Empleado> listaEmpleados = leerFicheroTxtEmpleados();
         for (Empleado e : listaEmpleados) {
-            existe = e.getNumeroDeEmpleado().equals(numeroDeEmpleado);
+            if(e.getNumeroDeEmpleado().equals(numeroDeEmpleado)){
+            existe =true ;
+            }
         }
         if (!existe) {
             fW = new FileWriter(f, true);
@@ -65,31 +67,36 @@ public class FicheroTexto {
         return existe;
     }
 
-    public void escribirFicheroTxtMovimiento(String numeroDeEmpleado, String numeroDeMovimiento, double Importe, String tipo, String fecha, String descripcion) throws IOException {
+     public boolean escribirFicheroTxtMovimientos(String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion ,String numeroDeEmpleado) throws IOException {
+        boolean existe = false;
 
-        File f = new File("./ficheroTextoMovimiento.txt");
+        File f = new File("./ficheroTextoMovimientos.txt");
         FileWriter fW;
 
         if (!f.exists()) {
             f.createNewFile();
         }
-          ArrayList<Movimiento> listaMovimientos= leerFicheroTxtMovimientos();
-            for(Movimiento m : listaMovimientos){
-            if(c.getNumeroDeEmpleado().equals(numeroDeEmpleado)){
-                existe=true;
-            }else{
-                existe=false;
+        ArrayList<Movimiento> listaMovimiento = leerFicheroTxtMovimientos();
+        for (Movimiento m : listaMovimiento) {
+            if(m.getNumeroDeEmpleado().equals(numeroDeEmpleado)){
+            if( m.getNumeroDeMovimiento().equals(numeroDeMovimiento) ){
+            existe =true;}
+        }
+        }
+        if (!existe) {
+            fW = new FileWriter(f, true);
+            try (PrintWriter pW = new PrintWriter(fW)) {
+
+                pW.println(numeroDeMovimiento+"|"+Importe+"|"+tipo+"|"+fecha+"|"+descripcion+"|"+numeroDeEmpleado);
+
+                pW.close(); //Cerramos la clase printWriter
             }
-            }
-            if (!existe){
-        fW = new FileWriter(f, true);
-        PrintWriter pW = new PrintWriter(fW);
-        pW.println(numeroDeMovimiento + "|" + Importe + "|" + tipo + "|" + fecha + "|" + descripcion + "|" + numeroDeEmpleado);
-        pW.close(); //Cerramos la clase printWriter
+        }
+        return existe;
     }
 
     public ArrayList leerFicheroTxtEmpleados() throws IOException {
-
+        ArrayList<Movimiento> listaDeMovimientosEmpleado= new ArrayList();
         File f = new File("./ficheroTextoEmpleados.txt");
         FileReader fR;
 
@@ -100,48 +107,29 @@ public class FicheroTexto {
         fR = new FileReader(f);
         BufferedReader br = new BufferedReader(fR);
         String cadenaTexto = br.readLine();
+        listaDeEmpleado.removeAll(listaDeEmpleado);
+        listaDeMovimientos.removeAll(listaDeMovimientos);
+         listaDeMovimientos=leerFicheroTxtMovimientos();
         while (cadenaTexto != null) {
+            listaDeMovimientosEmpleado= new ArrayList();
             String[] arrayDatosTexto = cadenaTexto.split("\\|");
-            Empleado empleado = new Empleado(arrayDatosTexto[0], arrayDatosTexto[1], arrayDatosTexto[2]);
+            for(Movimiento m:listaDeMovimientos){
+                if(m.getNumeroDeEmpleado().equals(arrayDatosTexto[0])){
+                listaDeMovimientosEmpleado.add(m);
+                }
+            }
+            Empleado empleado = new Empleado(arrayDatosTexto[0], arrayDatosTexto[1], arrayDatosTexto[2],listaDeMovimientosEmpleado);
+           listaDeEmpleado.add(empleado);
 
-            Movimiento movimiento = new Movimiento(arrayDatosTexto[3], Double.parseDouble(arrayDatosTexto[4]), arrayDatosTexto[5], arrayDatosTexto[6], arrayDatosTexto[7], arrayDatosTexto[0]);
-            listaDeEmpleado.add(empleado);
-            listaDeMovimientos.add(movimiento);
             cadenaTexto = br.readLine();
         }
         //recorro lista de movimientos
-        for (int x = 0; x < listaDeMovimientos.size(); x++) {
-            Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
-            String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
-            //recorro Lista Empleados
-            for (int y = 0; x < listaDeEmpleado.size(); y++) {
-
-                Empleado comprobarEmpleado = listaDeEmpleado.get(y);
-
-                String numeroDeEmpleadoDeEmpleado = comprobarEmpleado.getNumeroDeEmpleado();
-                if (numeroDeEmpleadoDeEmpleado.equals(numeroDeEmpleadoDeMovimiento)) {
-                    if (listaDeEmpleado.get(y).getListaDeMovimientos() == null) {
-                        ArrayList<Movimiento> movimientoNuevo = new ArrayList<>();
-                        listaDeEmpleado.get(y).setListaDeMovimientos(movimientoNuevo);
-                    }
-                    listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
-                    System.out.println(comprobarMovimiento);
-                }
-
-            }
-        }
-        if (eleccion == 0) {
-            br.close();
-            return listaDeEmpleado;
-        } else {
-            br.close();
-            return listaDeMovimientos;
-        }
+        
+        return listaDeEmpleado;
 
     }
 
-    public ArrayList leerFicheroTxtMovimientos() throws IOException {
-
+   public ArrayList leerFicheroTxtMovimientos() throws IOException {
         File f = new File("./ficheroTextoMovimientos.txt");
         FileReader fR;
 
@@ -152,43 +140,17 @@ public class FicheroTexto {
         fR = new FileReader(f);
         BufferedReader br = new BufferedReader(fR);
         String cadenaTexto = br.readLine();
+        listaDeMovimientos.removeAll(listaDeMovimientos);
         while (cadenaTexto != null) {
             String[] arrayDatosTexto = cadenaTexto.split("\\|");
-            Empleado empleado = new Empleado(arrayDatosTexto[0], arrayDatosTexto[1], arrayDatosTexto[2]);
+            Movimiento movimiento = new Movimiento(arrayDatosTexto[0], Double.parseDouble(arrayDatosTexto[1]), arrayDatosTexto[2],arrayDatosTexto[3], arrayDatosTexto[4], arrayDatosTexto[5]);
+           listaDeMovimientos.add(movimiento);
 
-            Movimiento movimiento = new Movimiento(arrayDatosTexto[3], Double.parseDouble(arrayDatosTexto[4]), arrayDatosTexto[5], arrayDatosTexto[6], arrayDatosTexto[7], arrayDatosTexto[0]);
-            listaDeEmpleado.add(empleado);
-            listaDeMovimientos.add(movimiento);
             cadenaTexto = br.readLine();
         }
         //recorro lista de movimientos
-        for (int x = 0; x < listaDeMovimientos.size(); x++) {
-            Movimiento comprobarMovimiento = listaDeMovimientos.get(x);
-            String numeroDeEmpleadoDeMovimiento = comprobarMovimiento.getNumeroDeEmpleado();
-            //recorro Lista Empleados
-            for (int y = 0; x < listaDeEmpleado.size(); y++) {
-
-                Empleado comprobarEmpleado = listaDeEmpleado.get(y);
-
-                String numeroDeEmpleadoDeEmpleado = comprobarEmpleado.getNumeroDeEmpleado();
-                if (numeroDeEmpleadoDeEmpleado.equals(numeroDeEmpleadoDeMovimiento)) {
-                    if (listaDeEmpleado.get(y).getListaDeMovimientos() == null) {
-                        ArrayList<Movimiento> movimientoNuevo = new ArrayList<>();
-                        listaDeEmpleado.get(y).setListaDeMovimientos(movimientoNuevo);
-                    }
-                    listaDeEmpleado.get(y).addListaDeMovimientos(comprobarMovimiento);
-                    System.out.println(comprobarMovimiento);
-                }
-
-            }
-        }
-        if (eleccion == 0) {
-            br.close();
-            return listaDeEmpleado;
-        } else {
-            br.close();
-            return listaDeMovimientos;
-        }
+        
+        return listaDeMovimientos;
 
     }
 

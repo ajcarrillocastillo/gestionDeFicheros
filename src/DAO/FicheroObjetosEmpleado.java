@@ -1,4 +1,3 @@
-
 package DAO;
 
 import gestionDeMovimientos.modelo.Empleado;
@@ -16,19 +15,17 @@ import java.util.ArrayList;
  * @author jesus
  */
 public class FicheroObjetosEmpleado {
-     private ArrayList<Empleado> listaDeEmpleado;
+
+    private ArrayList<Empleado> listaDeEmpleado;
     private ArrayList<Movimiento> listaDeMovimientos;
-    private Movimiento movimiento;
-    private boolean flagEmpleadoExistente;
 
     public FicheroObjetosEmpleado() {
-        this.flagEmpleadoExistente = false;
         listaDeEmpleado = new ArrayList<Empleado>();
         listaDeMovimientos = new ArrayList<Movimiento>();
     }
     private static FicheroObjetosEmpleado ficheroObjetosEmpleado = null;
 
-    public static FicheroObjetosEmpleado devolverFicherosEscritura() {
+    public static FicheroObjetosEmpleado devolver() {
 
         if (ficheroObjetosEmpleado != null) {
             return ficheroObjetosEmpleado;
@@ -37,60 +34,69 @@ public class FicheroObjetosEmpleado {
             return ficheroObjetosEmpleado;
         }
     }
-        public void escribirFicherosObjEmpleado(String numeroDeEmpleado, String nombre,
-        String apellido, String numeroDeMovimiento,double Importe,String tipo,String fecha, String descripcion ) throws IOException, ClassNotFoundException
-        {
 
-        File f = new File("EmpleadoObjeto.dat");
+    public boolean escribirFicherosObjEmpleado(String numeroDeEmpleado, String nombre,
+            String apellido) throws IOException, ClassNotFoundException {
+        boolean existe = false;
+        File f = new File("EmpleadosObjeto.dat");
         FileOutputStream fOS;
-        movimiento = new Movimiento(numeroDeMovimiento, Importe, tipo, fecha, descripcion, numeroDeEmpleado);
- 
         if (!f.exists()) {
             f.createNewFile();
         }
-
+        listaDeEmpleado.removeAll(listaDeEmpleado);
         if (f.length() > 0) {
-            leerFicherosObjEmpleado();
+            
+            ArrayList<Empleado> listaComprobarEmpleado = new ArrayList();
+            listaComprobarEmpleado = leerFicherosObjEmpleado();
+            for (Empleado e : listaComprobarEmpleado) {
+                if (e.getNumeroDeEmpleado().equals(numeroDeEmpleado)) {
+                    {
+                        existe = true;
+                    }
+                }
+            }
+            listaDeEmpleado = leerFicherosObjEmpleado();
         }
+        if (!existe) {
+            fOS = new FileOutputStream(f, false);
+            ObjectOutputStream oOS = new ObjectOutputStream(fOS);
 
-        fOS = new FileOutputStream(f, false);
-        ObjectOutputStream oOS = new ObjectOutputStream(fOS);
+            listaDeEmpleado.add(new Empleado(numeroDeEmpleado, nombre, apellido));
 
-        if (listaDeEmpleado == null) {
-            listaDeEmpleado = new ArrayList<Empleado>();
+                oOS.writeObject(listaDeEmpleado);
+
+
+            oOS.close();
+
         }
-        
-         for (int x = 0; x < listaDeEmpleado.size(); x++) {
-                Empleado comprobarEmpleado = listaDeEmpleado.get(x);
-                   if(comprobarEmpleado.getNumeroDeEmpleado()==numeroDeEmpleado){
-                    flagEmpleadoExistente=true;
-                    listaDeEmpleado.get(x).addListaDeMovimientos(movimiento);
-                    
-         }
-                
-         }
-         if (flagEmpleadoExistente==false){
-        listaDeEmpleado.add(new Empleado( numeroDeEmpleado,nombre,apellido));
-         }
-
-        for (Empleado c : listaDeEmpleado) {
-            oOS.writeObject(c);
-        }
-
-        oOS.close();
+        return existe;
     }
-        
-         public ArrayList leerFicherosObjEmpleado() throws IOException, ClassNotFoundException {
 
-        File f = new File("./EmpleadosObjetos.dat");
+    public ArrayList leerFicherosObjEmpleado() throws IOException, ClassNotFoundException {
+          ArrayList<Empleado> listadeEmpleadoConMovimientos = new ArrayList();
+     
+        File f = new File("EmpleadosObjeto.dat");
         if (!f.exists()) {
             f.createNewFile();
         }
-
+        if(f.length()>0){
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
         listaDeEmpleado.removeAll(listaDeEmpleado);
         listaDeEmpleado = (ArrayList< Empleado>) ois.readObject();
+      
+        listaDeMovimientos.removeAll(listaDeMovimientos);
+        listaDeMovimientos = FicheroObjetosMovimiento.devolver().leerFicherosObjMovimiento();
+        for (Empleado e : listaDeEmpleado) {
+               ArrayList<Movimiento> listadeMovimientosConEmpleados = new ArrayList();
+            for (Movimiento m : listaDeMovimientos) {
+                if (e.getNumeroDeEmpleado().equals(m.getNumeroDeEmpleado())) {
+                    listadeMovimientosConEmpleados.add(m);
+                }
+            }
+            listadeEmpleadoConMovimientos.add(new Empleado(e.getNumeroDeEmpleado(), e.getNombre(), e.getApellido(), listadeMovimientosConEmpleados));
+        }
         ois.close();
-        return listaDeEmpleado;
+        }
+        return listadeEmpleadoConMovimientos;
     }
 }

@@ -10,7 +10,7 @@ import DAO.FicheroObjetosEmpleado;
 import DAO.FicheroObjetosMovimiento;
 import DAO.FicheroTexto;
 import DAO.FicheroXML;
-import gestionDeMovimientos.vista.JDialogInsertadoDeDatos;
+import gestionDeMovimientos.vista.JDialogInsertadoEmpleados;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -25,11 +25,11 @@ import javax.xml.transform.TransformerException;
  *
  * @author jesus
  */
-public class ControladorInsertardoDeDatos {
+public class ControladorInsertardoDeEmpleados {
 
-    private final JDialogInsertadoDeDatos vistaInsertadoDeDatos;
+    private final JDialogInsertadoEmpleados vistaInsertadoDeDatos;
 
-    public ControladorInsertardoDeDatos(JDialogInsertadoDeDatos vistaInsertadoDeDatos) {
+    public ControladorInsertardoDeEmpleados(JDialogInsertadoEmpleados vistaInsertadoDeDatos) {
         this.vistaInsertadoDeDatos = vistaInsertadoDeDatos;
     }
 
@@ -88,24 +88,22 @@ public class ControladorInsertardoDeDatos {
         String numeroDeEmpleado =vistaInsertadoDeDatos.getjTextFieldNumerodeEmpleado().getText();
         String nombre = vistaInsertadoDeDatos.getjTextFieldNombre().getText();
         String apellido = vistaInsertadoDeDatos.getjTextFieldApellido().getText();
-        String numeroDeMovimiento= vistaInsertadoDeDatos.getjTextFieldNumeroDeMovimiento().getText();
-        String importeString = vistaInsertadoDeDatos.getjTextFieldImporte().getText();
-        String tipo = vistaInsertadoDeDatos.getjComboBoxTipo().getSelectedItem()+"";
-        String fecha = vistaInsertadoDeDatos.getjTextFieldFecha().getText();
-        String descripcion = vistaInsertadoDeDatos.getjTextAreaDescripcion().getText() ;
-        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty()||numeroDeMovimiento.isEmpty()||importeString.isEmpty()||tipo.isEmpty()||fecha.isEmpty()||descripcion.isEmpty())
+
+        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty())
         {
          control=false;
         JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         
         }else{
-        double importe=Double.parseDouble(importeString);
             try {
-                FicheroBinario.devolverFicherosEscritura().escribirFicherosDat(numeroDeEmpleado, nombre, apellido, numeroDeMovimiento, importe, tipo, fecha, descripcion);
+                if(FicheroBinario.devolver().escribirFicheroEmpleadosDat(numeroDeEmpleado, nombre, apellido)){
+                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Ya existe el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                    control=false;
+                }else{
                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Se han insertado los datos correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                control=true;
+                control=true;}
             } catch (IOException ex) {
-                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorInsertardoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
                  JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Error al insertar Datos en el fichero binario contacte con el programador", "Error", JOptionPane.ERROR_MESSAGE);
                 control=false;
             }
@@ -114,29 +112,27 @@ public class ControladorInsertardoDeDatos {
         return control;
     }
     
-      public boolean InsertarDatosTexto() {
+      public boolean InsertarEmpleadosTexto() {
         boolean control=false;
         String numeroDeEmpleado =vistaInsertadoDeDatos.getjTextFieldNumerodeEmpleado().getText();
         String nombre = vistaInsertadoDeDatos.getjTextFieldNombre().getText();
         String apellido = vistaInsertadoDeDatos.getjTextFieldApellido().getText();
-        String numeroDeMovimiento= vistaInsertadoDeDatos.getjTextFieldNumeroDeMovimiento().getText();
-        String importeString = vistaInsertadoDeDatos.getjTextFieldImporte().getText();
-        String tipo = vistaInsertadoDeDatos.getjComboBoxTipo().getSelectedItem()+"";
-        String fecha = vistaInsertadoDeDatos.getjTextFieldFecha().getText();
-        String descripcion = vistaInsertadoDeDatos.getjTextAreaDescripcion().getText() ;
-        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty()||numeroDeMovimiento.isEmpty()||importeString.isEmpty()||tipo.isEmpty()||fecha.isEmpty()||descripcion.isEmpty())
+        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty())
         {
          control=false;
         JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         
         }else{
-        double importe=Double.parseDouble(importeString);
+        
             try {
-                FicheroTexto.devolverFicherosEscritura().escribirFicheroTxtClientes(numeroDeEmpleado, nombre, apellido, numeroDeMovimiento, importe, tipo, fecha, descripcion);
+                if(FicheroTexto.devolver().escribirFicheroTxtEmpleados(numeroDeEmpleado, nombre, apellido)){
+                    JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Ya existe el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                    control=false;
+                }else{
                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Se han insertado los datos correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                control=true;
+                control=true;}
             } catch (IOException ex) {
-                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorInsertardoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
                  JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Error al insertar Datos en el fichero binario contacte con el programador", "Error", JOptionPane.ERROR_MESSAGE);
                 control=false;
             }
@@ -145,71 +141,70 @@ public class ControladorInsertardoDeDatos {
         return control;
     }
       
-       public boolean InsertarDatosObjeto() {
+          public boolean InsertarEmpleadosObjetos() {
         boolean control=false;
         String numeroDeEmpleado =vistaInsertadoDeDatos.getjTextFieldNumerodeEmpleado().getText();
         String nombre = vistaInsertadoDeDatos.getjTextFieldNombre().getText();
         String apellido = vistaInsertadoDeDatos.getjTextFieldApellido().getText();
-        String numeroDeMovimiento= vistaInsertadoDeDatos.getjTextFieldNumeroDeMovimiento().getText();
-        String importeString = vistaInsertadoDeDatos.getjTextFieldImporte().getText();
-        String tipo = vistaInsertadoDeDatos.getjComboBoxTipo().getSelectedItem()+"";
-        String fecha = vistaInsertadoDeDatos.getjTextFieldFecha().getText();
-        String descripcion = vistaInsertadoDeDatos.getjTextAreaDescripcion().getText() ;
-        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty()||numeroDeMovimiento.isEmpty()||importeString.isEmpty()||tipo.isEmpty()||fecha.isEmpty()||descripcion.isEmpty())
+        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty())
         {
          control=false;
         JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         
         }else{
-        double importe=Double.parseDouble(importeString);
+        
             try {
-                FicheroObjetosEmpleado.devolverFicherosEscritura().escribirFicherosObjEmpleado(numeroDeEmpleado, nombre, apellido, numeroDeMovimiento, importe, tipo, fecha, descripcion);
-                FicheroObjetosMovimiento.devolverFicherosEscritura().escribirFicherosObjMovimiento(numeroDeMovimiento, importe, tipo, fecha, descripcion, numeroDeEmpleado);
+                if(FicheroObjetosEmpleado.devolver().escribirFicherosObjEmpleado(numeroDeEmpleado, nombre, apellido)){
+                    JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Ya existe el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                    control=false;
+                }else{
                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Se han insertado los datos correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                control=true;
+                control=true;}
             } catch (IOException ex) {
-                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorInsertardoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
                  JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Error al insertar Datos en el fichero binario contacte con el programador", "Error", JOptionPane.ERROR_MESSAGE);
                 control=false;
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorInsertardoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Error al insertar Datos en el fichero binario contacte con el programador", "Error", JOptionPane.ERROR_MESSAGE);
+                control=false;
             }
         }
         
         return control;
     }
-    public boolean InsertarDatosXml() {
+        public boolean InsertarEmpleadosXML() {
         boolean control=false;
         String numeroDeEmpleado =vistaInsertadoDeDatos.getjTextFieldNumerodeEmpleado().getText();
         String nombre = vistaInsertadoDeDatos.getjTextFieldNombre().getText();
         String apellido = vistaInsertadoDeDatos.getjTextFieldApellido().getText();
-        String numeroDeMovimiento= vistaInsertadoDeDatos.getjTextFieldNumeroDeMovimiento().getText();
-        String importeString = vistaInsertadoDeDatos.getjTextFieldImporte().getText();
-        String tipo = vistaInsertadoDeDatos.getjComboBoxTipo().getSelectedItem()+"";
-        String fecha = vistaInsertadoDeDatos.getjTextFieldFecha().getText();
-        String descripcion = vistaInsertadoDeDatos.getjTextAreaDescripcion().getText() ;
-        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty()||numeroDeMovimiento.isEmpty()||importeString.isEmpty()||tipo.isEmpty()||fecha.isEmpty()||descripcion.isEmpty())
+        if(numeroDeEmpleado.isEmpty()|| nombre.isEmpty()||apellido.isEmpty())
         {
          control=false;
         JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Debe rellenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         
         }else{
+        
             try {
-                double importe=Double.parseDouble(importeString);
-                FicheroXML.devolverFicherosEscrituraXML().escribirFicheroXML(numeroDeEmpleado, nombre, apellido, numeroDeMovimiento, importe, tipo, fecha, descripcion);
+                if(FicheroXML.devolver().escribirFicheroXMLEmpleados(numeroDeEmpleado, nombre, apellido)){
+                    JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Ya existe el trabajador", "Error", JOptionPane.ERROR_MESSAGE);
+                    control=false;
+                }else{
                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Se han insertado los datos correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-                control=true;
+                control=true;}
             } catch (TransformerException ex) {
-                Logger.getLogger(ControladorInsertardoDeDatos.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ControladorInsertardoDeEmpleados.class.getName()).log(Level.SEVERE, null, ex);
+                 JOptionPane.showMessageDialog(vistaInsertadoDeDatos, "Error al insertar Datos en el fichero binario contacte con el programador", "Error", JOptionPane.ERROR_MESSAGE);
+                control=false;
             }
         }
         
         return control;
     }
-
+      
     //Abrir Insertar Datos   
     public static void AbrirInsertadoDeDatos(JFrame jFrame) {
-        JDialogInsertadoDeDatos nuevaVistaInsertadoDeDatos = new JDialogInsertadoDeDatos(jFrame, true);
+        JDialogInsertadoEmpleados nuevaVistaInsertadoDeDatos = new JDialogInsertadoEmpleados(jFrame, true);
         nuevaVistaInsertadoDeDatos.setLocationRelativeTo(null);
         nuevaVistaInsertadoDeDatos.setVisible(true);
     }
